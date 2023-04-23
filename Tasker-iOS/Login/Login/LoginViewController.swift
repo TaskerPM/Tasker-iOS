@@ -56,11 +56,10 @@ final class LoginViewController: UIViewController {
         guard let phoneNumber = phoneNumberTextField.text else { return }
         
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
-        print("😜😜😜")
     }
     
     private func confirmButton() {
-        viewModel.action(.confirm(userInput: "195873"))
+        viewModel.action(.confirm(userInput: "텍스트 필드에 입력된 유저의 인풋이 들어와야 함"))
     }
 }
 
@@ -97,10 +96,5 @@ extension LoginViewController: LoginViewModelDelegate {
         } else {
             // 인증번호가 틀립니다 얼럿
         }
-    }
-    
-    func getAuthKey(_ string: String) {
-        // 동의하고 시작하기 버튼 활성화
-        print(string)
     }
 }

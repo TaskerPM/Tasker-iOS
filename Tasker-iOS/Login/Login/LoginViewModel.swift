@@ -8,7 +8,6 @@
 import Foundation
 
 protocol LoginViewModelDelegate: AnyObject {
-    func getAuthKey(_ string: String)
     func confirm(_ result: Bool)
 }
 
@@ -19,13 +18,8 @@ final class LoginViewModel {
     }
     
     private let service = LoginService()
+    private var authKey: String?
     private weak var delegate: LoginViewModelDelegate?
-    
-    private var authKey: String? {
-        didSet {
-            delegate?.getAuthKey(authKey!)
-        }
-    }
     
     func action(_ action: Action) {
         switch action {
@@ -41,10 +35,15 @@ final class LoginViewModel {
     }
     
     private func tapAuthNumber(_ number: String) {
-        service.login(phoneNumber: number) { result in
+        service.requestLogin(phoneNumber: number) { result in
             switch result {
-            case .success(let key):
-                self.authKey = key.value
+            case .success(let loginResponse):
+                
+                if let message = loginResponse.message {
+                    print(message)
+                }
+                
+                self.authKey = loginResponse.value
             case .failure(let error):
                 print(error.errorDescription)
             }

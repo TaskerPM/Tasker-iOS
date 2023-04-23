@@ -8,11 +8,12 @@
 import Foundation
 
 struct LoginService {
-    let loginRequest: LoginRequest = LoginRequest()
     let urlSession: URLSession = URLSession.shared
     
-    func login(phoneNumber: String, completion: @escaping (Result<LoginResponse, URLSessionError>) -> Void) {
+    func requestLogin(phoneNumber: String, completion: @escaping (Result<SMSSendResponse, URLSessionError>) -> Void) {
+        let loginRequest = LoginRequest(phoneNumber: phoneNumber)
         guard let request = loginRequest.urlRequest else { return }
+        
         urlSession.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 completion(.failure(.invalidRequest))
@@ -25,19 +26,18 @@ struct LoginService {
                 return
             }
             
-            guard let data, let jsonData = JSONParser.decodeData(of: data, type: LoginResponse.self) else {
+            guard let data, let jsonData = JSONParser.decodeData(of: data, type: SMSSendResponse.self) else {
                 completion(.failure(.invaildData))
                 return
             }
             
             completion(.success(jsonData))
-        }
-        
+        }.resume()
     }
 }
 
 struct LoginRequest: NetworkRequest {
-    typealias ResponseType = LoginResponse
+    typealias ResponseType = SMSSendResponse
     
     let httpMethod: HttpMethod = .post
     let urlHost: String = "https://dev.taskerpm.shop/"
@@ -45,4 +45,10 @@ struct LoginRequest: NetworkRequest {
     var queryParameters: [String : String] = [:]
     var httpHeader: [String : String]?
     var httpBody: Data?
+    
+    init(phoneNumber: String) {
+        httpHeader = ["Content-Type": "application/json"]
+        
+        httpBody = JSONParser.encodeToData(with: SMSSendRequest(phoneNum: phoneNumber))
+    }
 }
