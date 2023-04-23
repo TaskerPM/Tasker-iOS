@@ -25,8 +25,12 @@ struct LoginService {
                 return
             }
             
-            // 리스폰스에 어떤 데이터가 넘어오는지 체크해봐야함. 데이터를 LoginResponse로 변환하는 로직
-            completion(.success(LoginResponse(value: "temp", message: "임시 데이터")))
+            guard let data, let jsonData = JSONParser.decodeData(of: data, type: LoginResponse.self) else {
+                completion(.failure(.invaildData))
+                return
+            }
+            
+            completion(.success(jsonData))
         }
         
     }
@@ -36,8 +40,8 @@ struct LoginRequest: NetworkRequest {
     typealias ResponseType = LoginResponse
     
     let httpMethod: HttpMethod = .post
-    let urlHost: String = "https://dev.taskerpm.shop/v1"
-    var urlPath: String = "/sms/send"
+    let urlHost: String = "https://dev.taskerpm.shop/"
+    var urlPath: String = "v1/sms/send"
     var queryParameters: [String : String] = [:]
     var httpHeader: [String : String]?
     var httpBody: Data?

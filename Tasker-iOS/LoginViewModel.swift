@@ -8,7 +8,7 @@
 import Foundation
 
 protocol LoginViewModelDelegate: AnyObject {
-    func getAuthKey()
+    func getAuthKey(_ string: String)
     func confirm(_ result: Bool)
 }
 
@@ -23,7 +23,7 @@ final class LoginViewModel {
     
     private var authKey: String? {
         didSet {
-            delegate?.getAuthKey()
+            delegate?.getAuthKey(authKey!)
         }
     }
     
@@ -34,6 +34,10 @@ final class LoginViewModel {
         case .confirm(let number):
             confirm(number)
         }
+    }
+    
+    func setDelegate(_ delegate: LoginViewModelDelegate) {
+        self.delegate = delegate
     }
     
     private func tapAuthNumber(_ number: String) {

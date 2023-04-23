@@ -14,6 +14,7 @@ final class LoginViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.keyboardType = .numberPad
+        textField.textColor = .black
         return textField
     }()
     
@@ -42,16 +43,20 @@ final class LoginViewController: UIViewController {
         view.backgroundColor = .white
         configureUI()
         configureLayout()
+        configureButtonAction()
+        
+        viewModel.setDelegate(self)
     }
     
-    private func button() {
-        authNumberButton.addAction(UIAction(handler: buttonAction), for: .touchUpInside)
+    private func configureButtonAction() {
+        authNumberButton.addAction(UIAction(handler: tappedAuthNumberButton), for: .touchUpInside)
     }
     
-    private func buttonAction(_ action: UIAction) {
+    private func tappedAuthNumberButton(_ action: UIAction) {
         guard let phoneNumber = phoneNumberTextField.text else { return }
         
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
+        print("😜😜😜")
     }
     
     private func confirmButton() {
@@ -94,7 +99,8 @@ extension LoginViewController: LoginViewModelDelegate {
         }
     }
     
-    func getAuthKey() {
+    func getAuthKey(_ string: String) {
         // 동의하고 시작하기 버튼 활성화
+        print(string)
     }
 }
