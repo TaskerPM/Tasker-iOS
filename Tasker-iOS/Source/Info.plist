@@ -7,6 +7,11 @@
 		<string>Mattone-Regular.otf</string>
 		<string>PTSans-Caption.ttf</string>
 		<string>PTSans-CaptionBold.ttf</string>
+		<string>Pretendard-SemiBold.otf</string>
+		<string>Pretendard-Light.otf</string>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-Regular.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
