@@ -9,26 +9,25 @@ import UIKit
 import SnapKit
 
 final class LoginViewController: UIViewController {
-    private let accessoryView: UIView = {
-        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 71.0))
+    private let welcomeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .setColor(.gray900)
+        label.font = .pretendardFont(size: 20, style: .bold)
+        label.text = "안녕하세요!\n휴대폰 번호로 가입해주세요."
+        label.numberOfLines = 2
+        return label
     }()
     
     private let phoneNumberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "휴대폰번호를 입력해주세요."
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 17.0, height: 0.0))
+        textField.leftViewMode = .always
+        textField.layer.borderColor = UIColor.setColor(.gray100).cgColor
+        textField.layer.cornerRadius = 10
         textField.layer.borderWidth = 1
         textField.keyboardType = .numberPad
-        textField.textColor = .setColor(.gray900)
-        textField.font = .pretendardFont(size: 13, style: .regular)
-        return textField
-    }()
-    
-    private let smsNumberTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "인증번호 5자리를 입력해주세요.(3분 이내)"
-        textField.layer.borderWidth = 1
-        textField.keyboardType = .numberPad
+        textField.tintColor = .setColor(.gray900)
         textField.textColor = .setColor(.gray900)
         textField.font = .pretendardFont(size: 13, style: .regular)
         return textField
@@ -37,11 +36,40 @@ final class LoginViewController: UIViewController {
     private let authNumberButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증번호 받기", for: .normal)
-        button.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
         button.setTitleColor(.setColor(.white), for: .normal)
-        button.backgroundColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        button.isEnabled = false
+        button.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
+        button.backgroundColor = .setColor(.gray100)
         return button
+    }()
+    
+    private let smsNumberTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "인증번호 5자리를 입력해주세요.(3분 이내)"
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 17.0, height: 0.0))
+        textField.leftViewMode = .always
+        textField.layer.borderColor = UIColor.setColor(.gray100).cgColor
+        textField.layer.cornerRadius = 10
+        textField.layer.borderWidth = 1
+        textField.keyboardType = .numberPad
+        textField.tintColor = .setColor(.gray900)
+        textField.textColor = .setColor(.gray900)
+        textField.font = .pretendardFont(size: 13, style: .regular)
+        return textField
+    }()
+    
+    private let authStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    private let accessoryView: UIView = {
+        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 71.0))
     }()
     
     private let privacyButton: UIButton = {
@@ -80,7 +108,7 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
-    private let stackView: UIStackView = {
+    private let accessoryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -109,12 +137,13 @@ final class LoginViewController: UIViewController {
         configureButtonAction()
         
         viewModel.setDelegate(self)
-        phoneNumberTextField.inputAccessoryView = accessoryView
         phoneNumberTextField.becomeFirstResponder()
+        smsNumberTextField.inputAccessoryView = accessoryView
     }
     
     private func configureButtonAction() {
         authNumberButton.addAction(UIAction(handler: tappedAuthNumberButton), for: .touchUpInside)
+        confirmButton.addAction(UIAction(handler: tappedConfirmButton), for: .touchUpInside)
     }
     
     private func tappedAuthNumberButton(_ action: UIAction) {
@@ -123,44 +152,58 @@ final class LoginViewController: UIViewController {
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
     }
     
-    private func tappedConfirmButton() {
-        viewModel.action(.confirm(userInput: "텍스트 필드에 입력된 유저의 인풋이 들어와야 함"))
+    private func tappedConfirmButton(_ action: UIAction) {
+        guard let text = smsNumberTextField.text else { return }
+        
+        viewModel.action(.confirm(userInput: text))
     }
 }
-
 
 // MARK: - UI Components
 extension LoginViewController {
     private func configureUI() {
-        [stackView, confirmButton].forEach {
-            accessoryView.addSubview($0)
-        }
+        [welcomeLabel, authStackView].forEach(view.addSubview)
         
-        [phoneNumberTextField, authNumberButton].forEach {
-            view.addSubview($0)
+        [phoneNumberTextField, authNumberButton, smsNumberTextField].forEach {
+            authStackView.addArrangedSubview($0)
         }
         
         [privacyButton, dotLabel, userAgreeButton].forEach {
-            stackView.addArrangedSubview($0)
+            accessoryStackView.addArrangedSubview($0)
+        }
+        
+        [accessoryStackView, confirmButton].forEach {
+            accessoryView.addSubview($0)
         }
     }
     
     private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         
-        NSLayoutConstraint.activate([
-            phoneNumberTextField.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            phoneNumberTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            phoneNumberTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            phoneNumberTextField.heightAnchor.constraint(equalToConstant: 48),
-            
-            authNumberButton.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 16),
-            authNumberButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            authNumberButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            authNumberButton.heightAnchor.constraint(equalTo: phoneNumberTextField.heightAnchor)
-        ])
+        welcomeLabel.snp.makeConstraints {
+            $0.top.equalTo(safeArea.snp.top).offset(6)
+            $0.leading.equalTo(safeArea.snp.leading).offset(22)
+        }
         
-        stackView.snp.makeConstraints {
+        authNumberButton.snp.makeConstraints {
+            $0.height.equalTo(48)
+        }
+        
+        smsNumberTextField.snp.makeConstraints {
+            $0.height.equalTo(48)
+        }
+        
+        phoneNumberTextField.snp.makeConstraints {
+            $0.height.equalTo(48)
+        }
+        
+        authStackView.snp.makeConstraints {
+            $0.top.equalTo(welcomeLabel.snp.bottom).offset(19)
+            $0.leading.equalTo(safeArea.snp.leading).offset(16)
+            $0.trailing.equalTo(safeArea.snp.trailing).offset(-16)
+        }
+        
+        accessoryStackView.snp.makeConstraints {
             $0.centerX.equalTo(accessoryView.snp.centerX)
             $0.bottom.equalTo(confirmButton.snp.top).inset(-8)
             $0.height.equalTo(17)
