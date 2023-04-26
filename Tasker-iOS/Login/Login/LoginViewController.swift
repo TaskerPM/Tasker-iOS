@@ -6,24 +6,87 @@
 //
 
 import UIKit
+import SnapKit
 
 final class LoginViewController: UIViewController {
+    private let accessoryView: UIView = {
+        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 71.0))
+    }()
+    
     private let phoneNumberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "휴대폰번호를 입력해주세요."
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.keyboardType = .numberPad
-        textField.textColor = .black
+        textField.textColor = .setColor(.gray900)
+        textField.font = .pretendardFont(size: 13, style: .regular)
+        return textField
+    }()
+    
+    private let smsNumberTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "인증번호 5자리를 입력해주세요.(3분 이내)"
+        textField.layer.borderWidth = 1
+        textField.keyboardType = .numberPad
+        textField.textColor = .setColor(.gray900)
+        textField.font = .pretendardFont(size: 13, style: .regular)
         return textField
     }()
     
     private let authNumberButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증번호 받기", for: .normal)
+        button.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
+        button.setTitleColor(.setColor(.white), for: .normal)
         button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    private let privacyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("개인정보처리방침", for: .normal)
+        button.titleLabel?.font = .pretendardFont(size: 11, style: .regular)
+        button.setUnderline()
+        button.setTitleColor(.setColor(.gray250), for: .normal)
+        return button
+    }()
+    
+    private let dotLabel: UILabel = {
+        let label = UILabel()
+        label.text = "•"
+        label.textColor = .setColor(.gray250)
+        label.textAlignment = .center
+        label.font = .pretendardFont(size: 11, style: .semiBold)
+        return label
+    }()
+    
+    private let userAgreeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("이용약관", for: .normal)
+        button.titleLabel?.font = .pretendardFont(size: 11, style: .regular)
+        button.setUnderline()
+        button.setTitleColor(.setColor(.gray250), for: .normal)
+        return button
+    }()
+    
+    private let confirmButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("동의하고 시작하기", for: .normal)
+        button.titleLabel?.font = .pretendardFont(size: 15, style: .semiBold)
+        button.setTitleColor(.setColor(.white), for: .normal)
+        button.backgroundColor = .setColor(.basicRed)
+        return button
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 4
+        return stackView
     }()
     
     private let viewModel: LoginViewModel
@@ -46,6 +109,8 @@ final class LoginViewController: UIViewController {
         configureButtonAction()
         
         viewModel.setDelegate(self)
+        phoneNumberTextField.inputAccessoryView = accessoryView
+        phoneNumberTextField.becomeFirstResponder()
     }
     
     private func configureButtonAction() {
@@ -58,7 +123,7 @@ final class LoginViewController: UIViewController {
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
     }
     
-    private func confirmButton() {
+    private func tappedConfirmButton() {
         viewModel.action(.confirm(userInput: "텍스트 필드에 입력된 유저의 인풋이 들어와야 함"))
     }
 }
@@ -67,8 +132,16 @@ final class LoginViewController: UIViewController {
 // MARK: - UI Components
 extension LoginViewController {
     private func configureUI() {
+        [stackView, confirmButton].forEach {
+            accessoryView.addSubview($0)
+        }
+        
         [phoneNumberTextField, authNumberButton].forEach {
             view.addSubview($0)
+        }
+        
+        [privacyButton, dotLabel, userAgreeButton].forEach {
+            stackView.addArrangedSubview($0)
         }
     }
     
@@ -86,6 +159,19 @@ extension LoginViewController {
             authNumberButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             authNumberButton.heightAnchor.constraint(equalTo: phoneNumberTextField.heightAnchor)
         ])
+        
+        stackView.snp.makeConstraints {
+            $0.centerX.equalTo(accessoryView.snp.centerX)
+            $0.bottom.equalTo(confirmButton.snp.top).inset(-8)
+            $0.height.equalTo(17)
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.leading.equalTo(accessoryView.snp.leading)
+            $0.trailing.equalTo(accessoryView.snp.trailing)
+            $0.bottom.equalTo(accessoryView.snp.bottom)
+            $0.height.equalTo(54)
+        }
     }
 }
 
