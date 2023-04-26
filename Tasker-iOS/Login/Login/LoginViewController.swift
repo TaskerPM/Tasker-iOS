@@ -137,8 +137,6 @@ final class LoginViewController: UIViewController {
         configureButtonAction()
         
         viewModel.setDelegate(self)
-        phoneNumberTextField.becomeFirstResponder()
-        smsNumberTextField.inputAccessoryView = accessoryView
     }
     
     private func configureButtonAction() {
@@ -149,6 +147,7 @@ final class LoginViewController: UIViewController {
     private func tappedAuthNumberButton(_ action: UIAction) {
         guard let phoneNumber = phoneNumberTextField.text else { return }
         
+        smsNumberTextField.isHidden = false
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
     }
     
@@ -163,18 +162,13 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func configureUI() {
         [welcomeLabel, authStackView].forEach(view.addSubview)
+        [phoneNumberTextField, authNumberButton, smsNumberTextField].forEach(authStackView.addArrangedSubview)
+        [privacyButton, dotLabel, userAgreeButton].forEach(accessoryStackView.addArrangedSubview)
+        [accessoryStackView, confirmButton].forEach(accessoryView.addSubview)
         
-        [phoneNumberTextField, authNumberButton, smsNumberTextField].forEach {
-            authStackView.addArrangedSubview($0)
-        }
-        
-        [privacyButton, dotLabel, userAgreeButton].forEach {
-            accessoryStackView.addArrangedSubview($0)
-        }
-        
-        [accessoryStackView, confirmButton].forEach {
-            accessoryView.addSubview($0)
-        }
+        smsNumberTextField.isHidden = true
+        phoneNumberTextField.becomeFirstResponder()
+        smsNumberTextField.inputAccessoryView = accessoryView
     }
     
     private func configureLayout() {
