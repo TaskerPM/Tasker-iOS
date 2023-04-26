@@ -12,7 +12,7 @@ enum AssetsColor {
     case gray10, gray15, gray20, gray25, gray30, gray100,
          gray150, gray200, gray230, gray250, gray300,
          gray400, gray500, gray600, gray700, gray800,
-         gray900, White, black, modalBackground
+         gray900, white, black, modalBackground
     case iphoneBule, error, teal
     case redBg, redText
     case orangeBg, orangeText
@@ -68,7 +68,7 @@ extension UIColor {
             return UIColor(red: 86/255.0, green: 86/255.0, blue: 86/255.0, alpha: 1)
         case .gray900:
             return UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1)
-        case .White:
+        case .white:
             return UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
         case .black:
             return UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1)
