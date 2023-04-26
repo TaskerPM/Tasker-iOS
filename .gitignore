@@ -1,13 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,swift,linux,cocoapods,swiftpackagemanager
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,swift,linux,cocoapods,swiftpackagemanager
-
-### CocoaPods ###
-## CocoaPods GitIgnore Template
-
-# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
-#           - Also handy if you have a large number of dependant pods
-#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
-Pods/
+# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,linux,sublimetext
+# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,macos,linux,sublimetext
 
 ### Linux ###
 *~
@@ -56,6 +48,39 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+### SublimeText ###
+# Cache files for Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# Workspace files are user-specific
+*.sublime-workspace
+
+# Project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using Sublime Text
+# *.sublime-project
+
+# SFTP configuration file
+sftp-config.json
+sftp-config-alt*.json
+
+# Package control specific files
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+
+# Sublime-github package stores a github token in this file
+# https://packagecontrol.io/packages/sublime-github
+GitHub.sublime-settings
 
 ### Swift ###
 # Xcode
@@ -141,12 +166,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### SwiftPackageManager ###
-Packages
-xcuserdata
-*.xcodeproj
-
-
 ### Xcode ###
 
 ## Xcode 8 and earlier
@@ -160,4 +179,4 @@ xcuserdata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,xcode,swift,linux,cocoapods,swiftpackagemanager
+# End of https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,linux,sublimetext
