@@ -10,8 +10,12 @@ import Foundation
 protocol LoginViewModelDelegate: AnyObject {
     func enableAuthButton()
     func disableAuthButton()
+    func receiveAuthNumberSuccessful()
+    func receiveAuthNumberFailed(errorMessage: String)
     func enableConfirmButton()
     func disableConfirmButton()
+    func loginSuccessful()
+    func loginFailed()
 }
 
 final class LoginViewModel {
@@ -28,10 +32,8 @@ final class LoginViewModel {
         switch action {
         case .tapAuthNumber(let number):
             tapAuthNumber(number)
-        case .confirm(let number):
-            confirm(number)
-        case .endEditing(let changedRange, let replacedNumber):
-            checkPhoneNumber(range: changedRange, replacedNumber: replacedNumber)
+        case .checkCorrect(let userInput):
+            checkCorrect(userInput)
         }
     }
     
@@ -67,23 +69,30 @@ final class LoginViewModel {
         return true
     }
     
-    private func tapAuthNumber(_ number: String) {
-        service.requestLogin(phoneNumber: number) { result in
+    private func tapAuthNumber(_ number: String?) {
+        guard let number else { return }
+        
+        service.requestLogin(phoneNumber: number) { [weak self] result in
             switch result {
             case .success(let loginResponse):
-                
                 if let message = loginResponse.message {
                     print(message)
+                    self?.delegate?.receiveAuthNumberFailed(errorMessage: message)
+                    return
                 }
                 
-                self.authKey = loginResponse.value
+                self?.authKey = loginResponse.value
+                self?.delegate?.receiveAuthNumberSuccessful()
+                
             case .failure(let error):
-                print(error.errorDescription)
+                self?.delegate?.receiveAuthNumberFailed(errorMessage: error.errorDescription)
             }
         }
     }
     
-    private func confirm(_ userNumber: String) {
-        delegate?.confirm(authKey == userNumber)
+    private func checkCorrect(_ userInput: String?) {
+        guard let userInput else { return }
+        
+        authKey == userInput ? delegate?.loginSuccessful() : delegate?.loginFailed()
     }
 }

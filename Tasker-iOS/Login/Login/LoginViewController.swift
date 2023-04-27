@@ -148,15 +148,11 @@ final class LoginViewController: UIViewController {
     }
     
     private func tappedAuthNumberButton(_ action: UIAction) {
-        smsNumberTextField.isHidden = false
-        smsNumberTextField.becomeFirstResponder()
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumberTextField.text))
     }
     
     private func tappedConfirmButton(_ action: UIAction) {
-        guard let text = smsNumberTextField.text else { return }
-        
-        viewModel.action(.confirm(userInput: text))
+        viewModel.action(.checkCorrect(userInput: smsNumberTextField.text))
     }
 }
 
@@ -226,12 +222,18 @@ extension LoginViewController: LoginViewModelDelegate {
         authNumberButton.isEnabled = false
     }
     
-    func confirm(_ result: Bool) {
-        if result == true {
-            // 다음화면 푸시
-        } else {
-            // 인증번호가 틀립니다 얼럿
+    func receiveAuthNumberSuccessful() {
+        DispatchQueue.main.async {
+            self.smsNumberTextField.isHidden = false
+            self.smsNumberTextField.becomeFirstResponder()
         }
+        // "인증번호 받기" 버튼을 "인증번호 다시 받기" 로 변경하는 로직을 추가해야 함.
+        // 3분 카운트다운 로직을 추가해야 함.
+    }
+    
+    func receiveAuthNumberFailed(errorMessage: String) {
+        // 인증번호 받기 실패. 관련 얼럿을 띄워야 함? 
+    }
     
     func enableConfirmButton() {
         confirmButton.backgroundColor = .setColor(.basicRed)
