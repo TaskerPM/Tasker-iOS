@@ -8,7 +8,7 @@
 import UIKit
 
 enum AssetsColor {
-    case basickBlack, basicRed, text, note
+    case basicBlack, basicRed, text, note
     case gray10, gray15, gray20, gray25, gray30, gray100,
          gray150, gray200, gray230, gray250, gray300,
          gray400, gray500, gray600, gray700, gray800,
@@ -26,7 +26,7 @@ enum AssetsColor {
 extension UIColor {
     static func setColor(_ name: AssetsColor) -> UIColor {
         switch name {
-        case .basickBlack:
+        case .basicBlack:
             return UIColor(red: 31/255.0, green: 31/255.0, blue: 31/255.0, alpha: 1)
         case .basicRed:
             return UIColor(red: 208/255.0, green: 93/255.0, blue: 77/255.0, alpha: 1)

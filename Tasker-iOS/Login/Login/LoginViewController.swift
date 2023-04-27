@@ -137,6 +137,7 @@ final class LoginViewController: UIViewController {
         configureButtonAction()
         
         viewModel.setDelegate(self)
+        phoneNumberTextField.delegate = self
     }
     
     private func configureButtonAction() {
@@ -213,6 +214,16 @@ extension LoginViewController {
 }
 
 extension LoginViewController: LoginViewModelDelegate {
+    func enableAuthButton() {
+        authNumberButton.backgroundColor = .setColor(.basicBlack)
+        authNumberButton.isEnabled = true
+    }
+    
+    func disableAuthButton() {
+        authNumberButton.backgroundColor = .setColor(.gray100)
+        authNumberButton.isEnabled = false
+    }
+    
     func confirm(_ result: Bool) {
         if result == true {
             // 다음화면 푸시
@@ -221,3 +232,13 @@ extension LoginViewController: LoginViewModelDelegate {
         }
     }
 }
+
+extension LoginViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard string.isEmpty || Int(string) != nil else { return false }
+        
+        viewModel.action(.endEditing(changedRange: range, replacedNumber: string))
+        return true
+    }
+}
+

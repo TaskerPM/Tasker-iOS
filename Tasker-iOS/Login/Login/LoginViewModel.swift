@@ -9,12 +9,15 @@ import Foundation
 
 protocol LoginViewModelDelegate: AnyObject {
     func confirm(_ result: Bool)
+    func enableAuthButton()
+    func disableAuthButton()
 }
 
 final class LoginViewModel {
     enum Action {
         case tapAuthNumber(phoneNumber: String)
         case confirm(userInput: String)
+        case endEditing(changedRange: NSRange, replacedNumber: String)
     }
     
     private let service = LoginService()
@@ -27,11 +30,23 @@ final class LoginViewModel {
             tapAuthNumber(number)
         case .confirm(let number):
             confirm(number)
+        case .endEditing(let changedRange, let replacedNumber):
+            checkPhoneNumber(range: changedRange, replacedNumber: replacedNumber)
         }
     }
     
     func setDelegate(_ delegate: LoginViewModelDelegate) {
         self.delegate = delegate
+    }
+    
+    private func checkPhoneNumber(range: NSRange, replacedNumber: String) {
+        if range.length != 0, range.location == 11 {
+            delegate?.enableAuthButton()
+        } else if range.length == 0, (range.location + replacedNumber.count) == 11 {
+            delegate?.enableAuthButton()
+        } else {
+            delegate?.disableAuthButton()
+        }
     }
     
     private func tapAuthNumber(_ number: String) {
