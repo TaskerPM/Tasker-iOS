@@ -149,6 +149,7 @@ final class LoginViewController: UIViewController {
         guard let phoneNumber = phoneNumberTextField.text else { return }
         
         smsNumberTextField.isHidden = false
+        smsNumberTextField.becomeFirstResponder()
         viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
     }
     
