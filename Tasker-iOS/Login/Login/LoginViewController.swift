@@ -104,7 +104,8 @@ final class LoginViewController: UIViewController {
         button.setTitle("동의하고 시작하기", for: .normal)
         button.titleLabel?.font = .pretendardFont(size: 15, style: .semiBold)
         button.setTitleColor(.setColor(.white), for: .normal)
-        button.backgroundColor = .setColor(.basicRed)
+        button.backgroundColor = .setColor(.gray100)
+        button.isEnabled = false
         return button
     }()
     
@@ -138,6 +139,7 @@ final class LoginViewController: UIViewController {
         
         viewModel.setDelegate(self)
         phoneNumberTextField.delegate = self
+        smsNumberTextField.delegate = self
     }
     
     private func configureButtonAction() {
@@ -146,11 +148,9 @@ final class LoginViewController: UIViewController {
     }
     
     private func tappedAuthNumberButton(_ action: UIAction) {
-        guard let phoneNumber = phoneNumberTextField.text else { return }
-        
         smsNumberTextField.isHidden = false
         smsNumberTextField.becomeFirstResponder()
-        viewModel.action(.tapAuthNumber(phoneNumber: phoneNumber))
+        viewModel.action(.tapAuthNumber(phoneNumber: phoneNumberTextField.text))
     }
     
     private func tappedConfirmButton(_ action: UIAction) {
@@ -214,6 +214,7 @@ extension LoginViewController {
     }
 }
 
+// MARK: - LoginViewModelDelegate
 extension LoginViewController: LoginViewModelDelegate {
     func enableAuthButton() {
         authNumberButton.backgroundColor = .setColor(.basicBlack)
@@ -231,15 +232,34 @@ extension LoginViewController: LoginViewModelDelegate {
         } else {
             // 인증번호가 틀립니다 얼럿
         }
+    
+    func enableConfirmButton() {
+        confirmButton.backgroundColor = .setColor(.basicRed)
+        confirmButton.isEnabled = true
+    }
+    
+    func disableConfirmButton() {
+        confirmButton.backgroundColor = .setColor(.gray100)
+        confirmButton.isEnabled = false
+    }
+    
+    func loginSuccessful() {
+        // 로그인 성공. 다음 화면 푸시
+    }
+    
+    func loginFailed() {
+        // 로그인 실패. 사용자에게 알림
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard string.isEmpty || Int(string) != nil else { return false }
-        
-        viewModel.action(.endEditing(changedRange: range, replacedNumber: string))
-        return true
+        if textField == phoneNumberTextField {
+            return viewModel.checkPhoneNumber(changedRange: range, replacedNumber: string)
+        } else {
+            return viewModel.checkAuthNumber(changedRange: range, replacedNumber: string)
+        }
     }
 }
 

@@ -8,16 +8,16 @@
 import Foundation
 
 protocol LoginViewModelDelegate: AnyObject {
-    func confirm(_ result: Bool)
     func enableAuthButton()
     func disableAuthButton()
+    func enableConfirmButton()
+    func disableConfirmButton()
 }
 
 final class LoginViewModel {
     enum Action {
-        case tapAuthNumber(phoneNumber: String)
-        case confirm(userInput: String)
-        case endEditing(changedRange: NSRange, replacedNumber: String)
+        case tapAuthNumber(phoneNumber: String?)
+        case checkCorrect(userInput: String?)
     }
     
     private let service = LoginService()
@@ -39,14 +39,32 @@ final class LoginViewModel {
         self.delegate = delegate
     }
     
-    private func checkPhoneNumber(range: NSRange, replacedNumber: String) {
-        if range.length != 0, range.location == 11 {
+    func checkPhoneNumber(changedRange: NSRange, replacedNumber: String) -> Bool {
+        guard replacedNumber.isEmpty || Int(replacedNumber) != nil else { return false }
+        
+        if changedRange.length != 0, changedRange.location == 11 {
             delegate?.enableAuthButton()
-        } else if range.length == 0, (range.location + replacedNumber.count) == 11 {
+        } else if changedRange.length == 0, (changedRange.location + replacedNumber.count) == 11 {
             delegate?.enableAuthButton()
         } else {
             delegate?.disableAuthButton()
         }
+        
+        return true
+    }
+    
+    func checkAuthNumber(changedRange: NSRange, replacedNumber: String) -> Bool {
+        guard replacedNumber.isEmpty || Int(replacedNumber) != nil else { return false }
+        
+        if changedRange.length != 0, changedRange.location == 5 {
+            delegate?.enableConfirmButton()
+        } else if changedRange.length == 0, (changedRange.location + replacedNumber.count) == 5 {
+            delegate?.enableConfirmButton()
+        } else {
+            delegate?.disableConfirmButton()
+        }
+        
+        return true
     }
     
     private func tapAuthNumber(_ number: String) {
