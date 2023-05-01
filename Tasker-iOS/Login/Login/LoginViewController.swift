@@ -33,7 +33,25 @@ final class LoginViewController: UIViewController {
         return textField
     }()
     
-    private let authNumberButton: UIButton = {
+    private let phoneNumberErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .setColor(.error)
+        label.font = .pretendardFont(size: 11, style: .regular)
+        label.isHidden = true
+        label.text = "*11자리 모두 입력해주세요."
+        return label
+    }()
+    
+    private let authNumberErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .setColor(.error)
+        label.font = .pretendardFont(size: 11, style: .regular)
+        label.isHidden = true
+        label.text = "*인증번호를 다시 입력해주세요."
+        return label
+    }()
+    
+    private let requestAuthButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증번호 받기", for: .normal)
         button.setTitleColor(.setColor(.white), for: .normal)
@@ -44,7 +62,7 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
-    private let smsNumberTextField: UITextField = {
+    private let authNumberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "인증번호 5자리를 입력해주세요.(3분 이내)"
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 17.0, height: 0.0))
@@ -57,15 +75,6 @@ final class LoginViewController: UIViewController {
         textField.textColor = .setColor(.gray900)
         textField.font = .pretendardFont(size: 13, style: .regular)
         return textField
-    }()
-    
-    private let authStackView: UIStackView = {
-       let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 8
-        return stackView
     }()
     
     private let accessoryView: UIView = {
@@ -90,7 +99,7 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let userAgreeButton: UIButton = {
+    private let userAgreementButton: UIButton = {
         let button = UIButton()
         button.setTitle("이용약관", for: .normal)
         button.titleLabel?.font = .pretendardFont(size: 11, style: .regular)
@@ -139,11 +148,11 @@ final class LoginViewController: UIViewController {
         
         viewModel.setDelegate(self)
         phoneNumberTextField.delegate = self
-        smsNumberTextField.delegate = self
+        authNumberTextField.delegate = self
     }
     
     private func configureButtonAction() {
-        authNumberButton.addAction(UIAction(handler: tappedAuthNumberButton), for: .touchUpInside)
+        requestAuthButton.addAction(UIAction(handler: tappedAuthNumberButton), for: .touchUpInside)
         confirmButton.addAction(UIAction(handler: tappedConfirmButton), for: .touchUpInside)
     }
     
@@ -152,21 +161,25 @@ final class LoginViewController: UIViewController {
     }
     
     private func tappedConfirmButton(_ action: UIAction) {
-        viewModel.action(.checkCorrect(userInput: smsNumberTextField.text))
+        viewModel.action(.checkCorrect(userInput: authNumberTextField.text))
     }
 }
 
 // MARK: - UI Components
 extension LoginViewController {
     private func configureUI() {
-        [welcomeLabel, authStackView].forEach(view.addSubview)
-        [phoneNumberTextField, authNumberButton, smsNumberTextField].forEach(authStackView.addArrangedSubview)
-        [privacyButton, dotLabel, userAgreeButton].forEach(accessoryStackView.addArrangedSubview)
-        [accessoryStackView, confirmButton].forEach(accessoryView.addSubview)
+        [welcomeLabel, phoneNumberTextField, phoneNumberErrorLabel, requestAuthButton, authNumberTextField, authNumberErrorLabel]
+            .forEach(view.addSubview)
+
+        [privacyButton, dotLabel, userAgreementButton]
+            .forEach(accessoryStackView.addArrangedSubview)
         
-        smsNumberTextField.isHidden = true
+        [accessoryStackView, confirmButton]
+            .forEach(accessoryView.addSubview)
+        
+        authNumberTextField.isHidden = true
         phoneNumberTextField.becomeFirstResponder()
-        smsNumberTextField.inputAccessoryView = accessoryView
+        authNumberTextField.inputAccessoryView = accessoryView
     }
     
     private func configureLayout() {
@@ -177,22 +190,28 @@ extension LoginViewController {
             $0.leading.equalTo(safeArea.snp.leading).offset(22)
         }
         
-        authNumberButton.snp.makeConstraints {
-            $0.height.equalTo(48)
-        }
-        
-        smsNumberTextField.snp.makeConstraints {
-            $0.height.equalTo(48)
-        }
-        
         phoneNumberTextField.snp.makeConstraints {
-            $0.height.equalTo(48)
-        }
-        
-        authStackView.snp.makeConstraints {
             $0.top.equalTo(welcomeLabel.snp.bottom).offset(19)
             $0.leading.equalTo(safeArea.snp.leading).offset(16)
-            $0.trailing.equalTo(safeArea.snp.trailing).offset(-16)
+            $0.trailing.equalTo(safeArea.snp.trailing).inset(16)
+            $0.height.equalTo(48)
+        }
+        
+        phoneNumberErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(phoneNumberTextField.snp.bottom).offset(5)
+            $0.leading.equalTo(phoneNumberTextField.snp.leading).offset(7)
+        }
+        
+        authNumberTextField.snp.makeConstraints {
+            $0.top.equalTo(requestAuthButton.snp.bottom).offset(8)
+            $0.leading.equalTo(requestAuthButton.snp.leading)
+            $0.trailing.equalTo(requestAuthButton.snp.trailing)
+            $0.height.equalTo(48)
+        }
+        
+        authNumberErrorLabel.snp.makeConstraints {
+            $0.top.equalTo(authNumberTextField.snp.bottom).offset(5)
+            $0.leading.equalTo(authNumberTextField.snp.leading).offset(7)
         }
         
         accessoryStackView.snp.makeConstraints {
@@ -208,24 +227,42 @@ extension LoginViewController {
             $0.height.equalTo(54)
         }
     }
+    
+    private func configurePhoneNumberErrorLabelLayout() {
+        requestAuthButton.snp.remakeConstraints {
+            if phoneNumberErrorLabel.isHidden {
+                $0.top.equalTo(phoneNumberTextField.snp.bottom).offset(8)
+            } else {
+                $0.top.equalTo(phoneNumberErrorLabel.snp.bottom).offset(10)
+            }
+            $0.leading.equalTo(phoneNumberTextField.snp.leading)
+            $0.trailing.equalTo(phoneNumberTextField.snp.trailing)
+            $0.height.equalTo(48)
+        }
+    }
+    
 }
 
 // MARK: - LoginViewModelDelegate
 extension LoginViewController: LoginViewModelDelegate {
     func enableAuthButton() {
-        authNumberButton.backgroundColor = .setColor(.basicBlack)
-        authNumberButton.isEnabled = true
+        requestAuthButton.backgroundColor = .setColor(.basicBlack)
+        requestAuthButton.isEnabled = true
+        phoneNumberErrorLabel.isHidden = true
+        configurePhoneNumberErrorLabelLayout()
     }
     
     func disableAuthButton() {
-        authNumberButton.backgroundColor = .setColor(.gray100)
-        authNumberButton.isEnabled = false
+        requestAuthButton.backgroundColor = .setColor(.gray100)
+        requestAuthButton.isEnabled = false
+        phoneNumberErrorLabel.isHidden = false
+        configurePhoneNumberErrorLabelLayout()
     }
     
     func receiveAuthNumberSuccessful() {
         DispatchQueue.main.async {
-            self.smsNumberTextField.isHidden = false
-            self.smsNumberTextField.becomeFirstResponder()
+            self.authNumberTextField.isHidden = false
+            self.authNumberTextField.becomeFirstResponder()
         }
         // "인증번호 받기" 버튼을 "인증번호 다시 받기" 로 변경하는 로직을 추가해야 함.
         // 3분 카운트다운 로직을 추가해야 함.
@@ -238,11 +275,13 @@ extension LoginViewController: LoginViewModelDelegate {
     func enableConfirmButton() {
         confirmButton.backgroundColor = .setColor(.basicRed)
         confirmButton.isEnabled = true
+        authNumberErrorLabel.isHidden = true
     }
     
     func disableConfirmButton() {
         confirmButton.backgroundColor = .setColor(.gray100)
         confirmButton.isEnabled = false
+        authNumberErrorLabel.isHidden = false
     }
     
     func loginSuccessful() {
