@@ -41,8 +41,13 @@ final class LoginViewModel {
         self.delegate = delegate
     }
     
-    func checkPhoneNumber(changedRange: NSRange, replacedNumber: String) -> Bool {
-        guard replacedNumber.isEmpty || Int(replacedNumber) != nil else { return false }
+    func checkPhoneNumber(currentNumber: String?, changedRange: NSRange, replacedNumber: String) -> Bool {
+        guard let currentNumber,
+              (replacedNumber.isEmpty || Int(replacedNumber) != nil),
+              (currentNumber + replacedNumber).count <= 11
+        else {
+            return false
+        }
         
         if changedRange.length != 0, changedRange.location == 11 {
             delegate?.enableAuthButton()
@@ -55,8 +60,13 @@ final class LoginViewModel {
         return true
     }
     
-    func checkAuthNumber(changedRange: NSRange, replacedNumber: String) -> Bool {
-        guard replacedNumber.isEmpty || Int(replacedNumber) != nil else { return false }
+    func checkAuthNumber(currentNumber: String?, changedRange: NSRange, replacedNumber: String) -> Bool {
+        guard let currentNumber,
+              (replacedNumber.isEmpty || Int(replacedNumber) != nil),
+              (currentNumber + replacedNumber).count <= 5
+        else {
+            return false
+        }
         
         if changedRange.length != 0, changedRange.location == 5 {
             delegate?.enableConfirmButton()

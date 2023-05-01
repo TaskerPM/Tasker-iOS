@@ -13,7 +13,7 @@ final class LoginViewController: UIViewController {
         let label = UILabel()
         label.textColor = .setColor(.gray900)
         label.font = .pretendardFont(size: 20, style: .bold)
-        label.text = "안녕하세요!\n휴대폰 번호로 가입해주세요."
+        label.text = "안녕하세요!\n휴대폰 번호를 입력해주세요."
         label.numberOfLines = 2
         return label
     }()
@@ -42,15 +42,6 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let authNumberErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .setColor(.error)
-        label.font = .pretendardFont(size: 11, style: .regular)
-        label.isHidden = true
-        label.text = "*인증번호를 다시 입력해주세요."
-        return label
-    }()
-    
     private let requestAuthButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증번호 받기", for: .normal)
@@ -75,6 +66,15 @@ final class LoginViewController: UIViewController {
         textField.textColor = .setColor(.gray900)
         textField.font = .pretendardFont(size: 13, style: .regular)
         return textField
+    }()
+    
+    private let authNumberErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .setColor(.error)
+        label.font = .pretendardFont(size: 11, style: .regular)
+        label.isHidden = true
+        label.text = "*인증번호를 다시 입력해주세요."
+        return label
     }()
     
     private let accessoryView: UIView = {
@@ -209,6 +209,13 @@ extension LoginViewController {
             $0.height.equalTo(48)
         }
         
+        requestAuthButton.snp.makeConstraints {
+            $0.top.equalTo(phoneNumberTextField.snp.bottom).offset(8)
+            $0.leading.equalTo(phoneNumberTextField.snp.leading)
+            $0.trailing.equalTo(phoneNumberTextField.snp.trailing)
+            $0.height.equalTo(48)
+        }
+        
         authNumberErrorLabel.snp.makeConstraints {
             $0.top.equalTo(authNumberTextField.snp.bottom).offset(5)
             $0.leading.equalTo(authNumberTextField.snp.leading).offset(7)
@@ -297,9 +304,9 @@ extension LoginViewController: LoginViewModelDelegate {
 extension LoginViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == phoneNumberTextField {
-            return viewModel.checkPhoneNumber(changedRange: range, replacedNumber: string)
+            return viewModel.checkPhoneNumber(currentNumber: textField.text ,changedRange: range, replacedNumber: string)
         } else {
-            return viewModel.checkAuthNumber(changedRange: range, replacedNumber: string)
+            return viewModel.checkAuthNumber(currentNumber: textField.text ,changedRange: range, replacedNumber: string)
         }
     }
 }
