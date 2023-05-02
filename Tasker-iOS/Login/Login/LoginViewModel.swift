@@ -92,12 +92,6 @@ final class LoginViewModel {
         service.requestLogin(phoneNumber: number) { [weak self] result in
             switch result {
             case .success(let loginResponse):
-                if let message = loginResponse.message {
-                    print(message)
-                    self?.delegate?.receiveAuthNumberFailed(errorMessage: message)
-                    return
-                }
-                
                 self?.authKey = loginResponse.value
                 self?.delegate?.receiveAuthNumberSuccessful()
                 self?.startTimer()
