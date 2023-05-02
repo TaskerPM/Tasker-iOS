@@ -30,6 +30,7 @@
 		7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE308D29F9510300A61856 /* UIButton+.swift */; };
 		7AEE30932A012A9E00A61856 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE30922A012A9E00A61856 /* WebViewController.swift */; };
 		E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DABC29F55FBC00DEAF64 /* JSONParser.swift */; };
+		E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC22A015A0A00DEAF64 /* Timer.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
@@ -60,6 +61,7 @@
 		7AEE308D29F9510300A61856 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		7AEE30922A012A9E00A61856 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		E313DABC29F55FBC00DEAF64 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		E313DAC22A015A0A00DEAF64 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				E3220B3C29F009EC00F6C9FB /* LoginViewModel.swift */,
 				E3220B3629F007AA00F6C9FB /* LoginService.swift */,
 				E3220B3429F0072700F6C9FB /* LoginModel.swift */,
+				E313DAC22A015A0A00DEAF64 /* Timer.swift */,
 			);
 			name = Login;
 			path = Login/Login;
@@ -292,6 +295,7 @@
 				E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */,
 				7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */,
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
+				E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */,
 				7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */,
 				7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */,
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
