@@ -16,6 +16,7 @@ protocol LoginViewModelDelegate: AnyObject {
     func disableConfirmButton()
     func loginSuccessful()
     func loginFailed()
+    func updateTimerText(_ time: String)
 }
 
 final class LoginViewModel {
@@ -27,6 +28,12 @@ final class LoginViewModel {
     private let service = LoginService()
     private var authKey: String?
     private weak var delegate: LoginViewModelDelegate?
+    private var timer: Timer?
+    private var timeLeft = 180 {
+        didSet {
+            delegate?.updateTimerText(timeToString(timeLeft))
+        }
+    }
     
     func action(_ action: Action) {
         switch action {
@@ -93,6 +100,7 @@ final class LoginViewModel {
                 
                 self?.authKey = loginResponse.value
                 self?.delegate?.receiveAuthNumberSuccessful()
+                self?.startTimer()
                 
             case .failure(let error):
                 self?.delegate?.receiveAuthNumberFailed(errorMessage: error.errorDescription)
@@ -104,5 +112,31 @@ final class LoginViewModel {
         guard let userInput else { return }
         
         authKey == userInput ? delegate?.loginSuccessful() : delegate?.loginFailed()
+    }
+}
+
+extension LoginViewModel {
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if self.timeLeft > 0 {
+                self.timeLeft -= 1
+                print(self.timeLeft)
+            } else {
+                self.stopTimer()
+            }
+        }
+        timer?.fire()
+    }
+    
+    func stopTimer() {
+        print("😝😝😝😝😝")
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func timeToString(_ timeLeft: Int) -> String {
+        let minutes: Int = timeLeft / 60
+        let seconds: Int = timeLeft % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }

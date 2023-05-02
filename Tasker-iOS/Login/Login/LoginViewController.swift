@@ -53,19 +53,36 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
+    private let authNumberStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.layer.borderColor = UIColor.setColor(.gray100).cgColor
+        stackView.layer.cornerRadius = 10
+        stackView.layer.borderWidth = 1
+        return stackView
+    }()
+    
     private let authNumberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "인증번호 5자리를 입력해주세요.(3분 이내)"
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 17.0, height: 0.0))
         textField.leftViewMode = .always
-        textField.layer.borderColor = UIColor.setColor(.gray100).cgColor
-        textField.layer.cornerRadius = 10
-        textField.layer.borderWidth = 1
         textField.keyboardType = .numberPad
+        textField.textContentType = .oneTimeCode
         textField.tintColor = .setColor(.gray900)
         textField.textColor = .setColor(.gray900)
         textField.font = .pretendardFont(size: 13, style: .regular)
         return textField
+    }()
+    
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .setColor(.basicRed)
+        label.font = .pretendardFont(size: 12, style: .regular)
+        label.text = "03:00"
+        return label
     }()
     
     private let authNumberErrorLabel: UILabel = {
@@ -78,7 +95,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private let accessoryView: UIView = {
-        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 71.0))
+        return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 80.0))
     }()
     
     private let privacyButton: UIButton = {
@@ -128,7 +145,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private let viewModel: LoginViewModel
-    
+  
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         
@@ -154,6 +171,8 @@ final class LoginViewController: UIViewController {
     private func configureButtonAction() {
         requestAuthButton.addAction(UIAction(handler: tappedAuthNumberButton), for: .touchUpInside)
         confirmButton.addAction(UIAction(handler: tappedConfirmButton), for: .touchUpInside)
+        privacyButton.addAction(UIAction(handler: tappedPrivacyButton), for: .touchUpInside)
+        userAgreementButton.addAction(UIAction(handler: tappedUserAgreementButton), for: .touchUpInside)
     }
     
     private func tappedAuthNumberButton(_ action: UIAction) {
@@ -163,12 +182,27 @@ final class LoginViewController: UIViewController {
     private func tappedConfirmButton(_ action: UIAction) {
         viewModel.action(.checkCorrect(userInput: authNumberTextField.text))
     }
+    
+    private func tappedPrivacyButton(_ action: UIAction) {
+        let webVC = WebViewController(linkString: "https://www.naver.com")
+//        self.navigationController?.pushViewController(webVC, animated: true)
+        self.present(webVC, animated: true)
+    }
+    
+    private func tappedUserAgreementButton(_ action: UIAction) {
+        let webVC = WebViewController(linkString: "https://www.google.com")
+//        self.navigationController?.pushViewController(webVC, animated: true)
+        self.present(webVC, animated: true)
+    }
 }
 
 // MARK: - UI Components
 extension LoginViewController {
     private func configureUI() {
-        [welcomeLabel, phoneNumberTextField, phoneNumberErrorLabel, requestAuthButton, authNumberTextField, authNumberErrorLabel]
+        [authNumberTextField, timerLabel]
+            .forEach(authNumberStackView.addArrangedSubview)
+        
+        [welcomeLabel, phoneNumberTextField, phoneNumberErrorLabel, requestAuthButton, authNumberStackView, authNumberErrorLabel]
             .forEach(view.addSubview)
 
         [privacyButton, dotLabel, userAgreementButton]
@@ -177,7 +211,7 @@ extension LoginViewController {
         [accessoryStackView, confirmButton]
             .forEach(accessoryView.addSubview)
         
-        authNumberTextField.isHidden = true
+        authNumberStackView.isHidden = false
         phoneNumberTextField.becomeFirstResponder()
         authNumberTextField.inputAccessoryView = accessoryView
     }
@@ -202,7 +236,7 @@ extension LoginViewController {
             $0.leading.equalTo(phoneNumberTextField.snp.leading).offset(7)
         }
         
-        authNumberTextField.snp.makeConstraints {
+        authNumberStackView.snp.makeConstraints {
             $0.top.equalTo(requestAuthButton.snp.bottom).offset(8)
             $0.leading.equalTo(requestAuthButton.snp.leading)
             $0.trailing.equalTo(requestAuthButton.snp.trailing)
@@ -247,7 +281,6 @@ extension LoginViewController {
             $0.height.equalTo(48)
         }
     }
-    
 }
 
 // MARK: - LoginViewModelDelegate
@@ -268,7 +301,7 @@ extension LoginViewController: LoginViewModelDelegate {
     
     func receiveAuthNumberSuccessful() {
         DispatchQueue.main.async {
-            self.authNumberTextField.isHidden = false
+            self.authNumberStackView.isHidden = false
             self.authNumberTextField.becomeFirstResponder()
         }
         // "인증번호 받기" 버튼을 "인증번호 다시 받기" 로 변경하는 로직을 추가해야 함.
@@ -297,6 +330,12 @@ extension LoginViewController: LoginViewModelDelegate {
     
     func loginFailed() {
         // 로그인 실패. 사용자에게 알림
+    }
+    
+    func updateTimerText(_ time: String) {
+        DispatchQueue.main.async {
+            self.timerLabel.text = time
+        }
     }
 }
 
