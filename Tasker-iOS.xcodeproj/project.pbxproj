@@ -28,6 +28,7 @@
 		7AEE308A29F93EC500A61856 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEE308929F93EC500A61856 /* RxRelay */; };
 		7AEE308C29F93EC500A61856 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEE308B29F93EC500A61856 /* RxSwift */; };
 		7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE308D29F9510300A61856 /* UIButton+.swift */; };
+		7AEE30932A012A9E00A61856 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEE30922A012A9E00A61856 /* WebViewController.swift */; };
 		E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DABC29F55FBC00DEAF64 /* JSONParser.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
@@ -57,6 +58,7 @@
 		7AEE307C29F81ECB00A61856 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		7AEE308129F81ED500A61856 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		7AEE308D29F9510300A61856 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		7AEE30922A012A9E00A61856 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		E313DABC29F55FBC00DEAF64 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				E313DABF29F5757200DEAF64 /* Login */,
 				E313DAC129F5760B00DEAF64 /* Network */,
 				7A0BDBF429F7F127001580DE /* Extensions */,
+				7AEE30922A012A9E00A61856 /* WebViewController.swift */,
 			);
 			path = "Tasker-iOS";
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				7A0BDBF629F7F153001580DE /* UIColor+.swift in Sources */,
 				7AC04EBB29D31FE4004BB3E2 /* Tasker_iOS.xcdatamodeld in Sources */,
 				E3220B3D29F009EC00F6C9FB /* LoginViewModel.swift in Sources */,
+				7AEE30932A012A9E00A61856 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
