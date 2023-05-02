@@ -81,7 +81,6 @@ final class LoginViewController: UIViewController {
         let label = UILabel()
         label.textColor = .setColor(.basicRed)
         label.font = .pretendardFont(size: 12, style: .regular)
-        label.text = "03:00"
         return label
     }()
     
@@ -281,6 +280,24 @@ extension LoginViewController {
             $0.height.equalTo(48)
         }
     }
+    
+    private func initRequestAuthButton() {
+        requestAuthButton.setTitle("인증번호 받기", for: .normal)
+        requestAuthButton.setTitleColor(.setColor(.white), for: .normal)
+        requestAuthButton.isEnabled = false
+        requestAuthButton.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
+        requestAuthButton.backgroundColor = .setColor(.gray100)
+    }
+    
+    private func changeRequestAuthButtonWhenReceive(remainCount: String) {
+        requestAuthButton.setTitle("인증번호 다시 받기(\(remainCount)회 남음)", for: .normal)
+        requestAuthButton.setTitleColor(.setColor(.gray300), for: .normal)
+        
+        requestAuthButton.backgroundColor = .white
+        requestAuthButton.layer.borderWidth = 1
+        requestAuthButton.layer.borderColor = UIColor.setColor(.gray300).cgColor
+        
+    }
 }
 
 // MARK: - LoginViewModelDelegate
@@ -299,13 +316,15 @@ extension LoginViewController: LoginViewModelDelegate {
         configurePhoneNumberErrorLabelLayout()
     }
     
-    func receiveAuthNumberSuccessful() {
+    func receiveAuthNumberSuccessful(remainCount: String) {
         DispatchQueue.main.async {
             self.authNumberStackView.isHidden = false
+            self.authNumberTextField.text = ""
             self.authNumberTextField.becomeFirstResponder()
+            self.authNumberErrorLabel.isHidden = true
+            
+            self.changeRequestAuthButtonWhenReceive(remainCount: remainCount)
         }
-        // "인증번호 받기" 버튼을 "인증번호 다시 받기" 로 변경하는 로직을 추가해야 함.
-        // 3분 카운트다운 로직을 추가해야 함.
     }
     
     func receiveAuthNumberFailed(errorMessage: String) {
@@ -321,7 +340,7 @@ extension LoginViewController: LoginViewModelDelegate {
     func disableConfirmButton() {
         confirmButton.backgroundColor = .setColor(.gray100)
         confirmButton.isEnabled = false
-        authNumberErrorLabel.isHidden = false
+        authNumberErrorLabel.isHidden = true
     }
     
     func loginSuccessful() {
@@ -329,12 +348,23 @@ extension LoginViewController: LoginViewModelDelegate {
     }
     
     func loginFailed() {
-        // 로그인 실패. 사용자에게 알림
+        self.authNumberErrorLabel.text = "*인증번호를 다시 입력해주세요."
+        self.authNumberErrorLabel.isHidden = false
+        
     }
     
     func updateTimerText(_ time: String) {
         DispatchQueue.main.async {
             self.timerLabel.text = time
+        }
+    }
+    
+    func expiredAuthTime() {
+        DispatchQueue.main.async {
+            self.authNumberErrorLabel.text = "*3분이 경과되었습니다. 인증번호를 다시 받아주세요."
+            self.confirmButton.backgroundColor = .setColor(.gray100)
+            self.confirmButton.isEnabled = false
+            self.authNumberErrorLabel.isHidden = false
         }
     }
 }

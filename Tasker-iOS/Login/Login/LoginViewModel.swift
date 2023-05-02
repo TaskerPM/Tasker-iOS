@@ -10,13 +10,14 @@ import Foundation
 protocol LoginViewModelDelegate: AnyObject {
     func enableAuthButton()
     func disableAuthButton()
-    func receiveAuthNumberSuccessful()
+    func receiveAuthNumberSuccessful(remainCount: String)
     func receiveAuthNumberFailed(errorMessage: String)
     func enableConfirmButton()
     func disableConfirmButton()
     func loginSuccessful()
     func loginFailed()
     func updateTimerText(_ time: String)
+    func expiredAuthTime()
 }
 
 final class LoginViewModel {
@@ -28,12 +29,7 @@ final class LoginViewModel {
     private let service = LoginService()
     private var authKey: String?
     private weak var delegate: LoginViewModelDelegate?
-    private var timer: Timer?
-    private var timeLeft = 180 {
-        didSet {
-            delegate?.updateTimerText(timeToString(timeLeft))
-        }
-    }
+    private var timer: ThreeMinuteTimer?
     
     func action(_ action: Action) {
         switch action {
@@ -70,7 +66,8 @@ final class LoginViewModel {
     func checkAuthNumber(currentNumber: String?, changedRange: NSRange, replacedNumber: String) -> Bool {
         guard let currentNumber,
               (replacedNumber.isEmpty || Int(replacedNumber) != nil),
-              (currentNumber + replacedNumber).count <= 5
+              (currentNumber + replacedNumber).count <= 5,
+              authKey != nil
         else {
             return false
         }
@@ -92,8 +89,10 @@ final class LoginViewModel {
         service.requestLogin(phoneNumber: number) { [weak self] result in
             switch result {
             case .success(let loginResponse):
+                self?.stopTimer()
                 self?.authKey = loginResponse.value
-                self?.delegate?.receiveAuthNumberSuccessful()
+                // 서버에서 남은 횟수 받아와야 함 API 수정 필요
+                self?.delegate?.receiveAuthNumberSuccessful(remainCount: "2")
                 self?.startTimer()
                 
             case .failure(let error):
@@ -107,30 +106,31 @@ final class LoginViewModel {
         
         authKey == userInput ? delegate?.loginSuccessful() : delegate?.loginFailed()
     }
-}
-
-extension LoginViewModel {
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if self.timeLeft > 0 {
-                self.timeLeft -= 1
-                print(self.timeLeft)
-            } else {
-                self.stopTimer()
+    
+    private func startTimer() {
+        timer = ThreeMinuteTimer()
+        
+        timer?.start() { timeLeft in
+            if timeLeft >= 0 {
+                self.delegate?.updateTimerText(self.timeToString(timeLeft))
             }
+        } completion: {
+            self.stopTimer()
+            
+            self.delegate?.expiredAuthTime()
         }
-        timer?.fire()
     }
     
-    func stopTimer() {
-        print("😝😝😝😝😝")
-        timer?.invalidate()
+    private func stopTimer() {
+        timer?.stop()
+        
+        authKey = nil
         timer = nil
     }
     
-    func timeToString(_ timeLeft: Int) -> String {
-        let minutes: Int = timeLeft / 60
-        let seconds: Int = timeLeft % 60
+    private func timeToString(_ time: Int) -> String {
+        let minutes: Int = time / 60
+        let seconds: Int = time % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
