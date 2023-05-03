@@ -36,10 +36,8 @@ class WebViewController: UIViewController, WKUIDelegate {
     private func configureUI() {
         [webView, indicator].forEach(view.addSubview)
         
-        let safeArea = view.safeAreaLayoutGuide
-        
         webView.snp.makeConstraints {
-            $0.edges.equalTo(safeArea)
+            $0.edges.equalToSuperview()
         }
         
         indicator.snp.makeConstraints {
