@@ -292,7 +292,6 @@ extension LoginViewController {
     private func changeRequestAuthButtonWhenReceive(remainCount: String) {
         requestAuthButton.setTitle("인증번호 다시 받기(\(remainCount)회 남음)", for: .normal)
         requestAuthButton.setTitleColor(.setColor(.gray300), for: .normal)
-        
         requestAuthButton.backgroundColor = .white
         requestAuthButton.layer.borderWidth = 1
         requestAuthButton.layer.borderColor = UIColor.setColor(.gray300).cgColor

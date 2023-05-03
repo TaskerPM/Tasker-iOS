@@ -16,8 +16,11 @@ final class ThreeMinuteTimer: RepeatingSecondsTimer {
     private var timeLeft: Int = 180
     private var repeatingExecution: ((Int) -> Void)?
     private var completion: (() -> Void)?
-    private var timers: (repeatTimer: DispatchSourceTimer?, nonRepeatTimer: DispatchSourceTimer?) = (DispatchSource.makeTimerSource(),
-                                                                                                     DispatchSource.makeTimerSource())
+    private var timers: (repeatTimer: DispatchSourceTimer?,
+                         nonRepeatTimer: DispatchSourceTimer?) = (
+                            DispatchSource.makeTimerSource(),
+                            DispatchSource.makeTimerSource()
+                         )
     
     deinit {
         stop()
