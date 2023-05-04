@@ -10,7 +10,7 @@ import Foundation
 protocol LoginViewModelDelegate: AnyObject {
     func enableAuthButton()
     func disableAuthButton()
-    func receiveAuthNumberSuccessful(remainCount: String)
+    func receiveAuthNumberSuccessful(remainCount: Int)
     func receiveAuthNumberFailed(errorMessage: String)
     func enableConfirmButton()
     func disableConfirmButton()
@@ -92,7 +92,7 @@ final class LoginViewModel {
                 self?.stopTimer()
                 self?.authKey = loginResponse.value
                 // 서버에서 남은 횟수 받아와야 함 API 수정 필요
-                self?.delegate?.receiveAuthNumberSuccessful(remainCount: "2")
+                self?.delegate?.receiveAuthNumberSuccessful(remainCount: 2)
                 self?.startTimer()
                 
             case .failure(let error):

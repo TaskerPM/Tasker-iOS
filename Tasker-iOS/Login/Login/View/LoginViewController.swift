@@ -42,19 +42,15 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let requestAuthButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("인증번호 받기", for: .normal)
-        button.setTitleColor(.setColor(.white), for: .normal)
-        button.layer.cornerRadius = 10
-        button.isEnabled = false
-        button.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
-        button.backgroundColor = .setColor(.gray100)
+    private let requestAuthButton: RequestAuthButton = {
+        let button = RequestAuthButton()
+        button.initButton(isActive: false)
         return button
     }()
     
     private let authNumberStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.isHidden = true
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
@@ -210,7 +206,6 @@ extension LoginViewController {
         [accessoryStackView, confirmButton]
             .forEach(accessoryView.addSubview)
         
-        authNumberStackView.isHidden = false
         phoneNumberTextField.becomeFirstResponder()
         authNumberTextField.inputAccessoryView = accessoryView
     }
@@ -280,54 +275,43 @@ extension LoginViewController {
             $0.height.equalTo(48)
         }
     }
-    
-    private func initRequestAuthButton() {
-        requestAuthButton.setTitle("인증번호 받기", for: .normal)
-        requestAuthButton.setTitleColor(.setColor(.white), for: .normal)
-        requestAuthButton.isEnabled = false
-        requestAuthButton.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
-        requestAuthButton.backgroundColor = .setColor(.gray100)
-    }
-    
-    private func changeRequestAuthButtonWhenReceive(remainCount: String) {
-        requestAuthButton.setTitle("인증번호 다시 받기(\(remainCount)회 남음)", for: .normal)
-        requestAuthButton.setTitleColor(.setColor(.gray300), for: .normal)
-        requestAuthButton.backgroundColor = .white
-        requestAuthButton.layer.borderWidth = 1
-        requestAuthButton.layer.borderColor = UIColor.setColor(.gray300).cgColor
-        
-    }
 }
 
 // MARK: - LoginViewModelDelegate
 extension LoginViewController: LoginViewModelDelegate {
     func enableAuthButton() {
-        requestAuthButton.backgroundColor = .setColor(.basicBlack)
-        requestAuthButton.isEnabled = true
+        requestAuthButton.changeState(.active)
         phoneNumberErrorLabel.isHidden = true
         configurePhoneNumberErrorLabelLayout()
     }
     
     func disableAuthButton() {
-        requestAuthButton.backgroundColor = .setColor(.gray100)
-        requestAuthButton.isEnabled = false
+        requestAuthButton.changeState(.inactive)
         phoneNumberErrorLabel.isHidden = false
         configurePhoneNumberErrorLabelLayout()
     }
     
-    func receiveAuthNumberSuccessful(remainCount: String) {
+    func receiveAuthNumberSuccessful(remainCount: Int) {
         DispatchQueue.main.async {
             self.authNumberStackView.isHidden = false
             self.authNumberTextField.text = ""
             self.authNumberTextField.becomeFirstResponder()
             self.authNumberErrorLabel.isHidden = true
             
-            self.changeRequestAuthButtonWhenReceive(remainCount: remainCount)
+            self.requestAuthButton.changeState(.redemanded, remainCount: remainCount)
         }
     }
     
     func receiveAuthNumberFailed(errorMessage: String) {
-        // 인증번호 받기 실패. 관련 얼럿을 띄워야 함? 
+        let alert = AlertBuilder()
+            .withTitle("오류")
+            .withMessage("잠시후 다시 시도해주세요.\n\(errorMessage)")
+            .withDefaultActions()
+            .build()
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
     
     func enableConfirmButton() {

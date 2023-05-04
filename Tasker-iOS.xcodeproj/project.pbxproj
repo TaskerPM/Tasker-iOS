@@ -32,6 +32,7 @@
 		E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DABC29F55FBC00DEAF64 /* JSONParser.swift */; };
 		E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC22A015A0A00DEAF64 /* Timer.swift */; };
 		E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */; };
+		E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
@@ -64,6 +65,7 @@
 		E313DABC29F55FBC00DEAF64 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		E313DAC22A015A0A00DEAF64 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
+		E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthButton.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -168,10 +170,10 @@
 		E313DABF29F5757200DEAF64 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */,
-				E3220B3C29F009EC00F6C9FB /* LoginViewModel.swift */,
-				E3220B3629F007AA00F6C9FB /* LoginService.swift */,
 				E313DACD2A0415CA00DEAF64 /* Utility */,
+				E313DACA2A04158600DEAF64 /* View */,
+				E313DACB2A04159500DEAF64 /* ViewModel */,
+				E313DACC2A0415B900DEAF64 /* Service */,
 				E3220B3429F0072700F6C9FB /* LoginModel.swift */,
 			);
 			name = Login;
@@ -200,6 +202,31 @@
 				E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		E313DACA2A04158600DEAF64 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */,
+				E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E313DACB2A04159500DEAF64 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E3220B3C29F009EC00F6C9FB /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E313DACC2A0415B900DEAF64 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E3220B3629F007AA00F6C9FB /* LoginService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		E313DACD2A0415CA00DEAF64 /* Utility */ = {
@@ -300,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */,
+				E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */,
 				7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */,
 				E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */,
 				E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */,
