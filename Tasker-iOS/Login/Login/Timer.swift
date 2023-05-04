@@ -61,8 +61,8 @@ final class ThreeMinuteTimer: RepeatingSecondsTimer {
         
         timers.repeatTimer?.schedule(deadline: .now(), repeating: 1)
         timers.repeatTimer?.setEventHandler {
-            self.timeLeft -= 1
             self.repeatingExecution?(self.timeLeft)
+            self.timeLeft -= 1
         }
         
         timers.nonRepeatTimer?.schedule(deadline: .now() + 180)
