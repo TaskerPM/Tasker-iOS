@@ -11,7 +11,6 @@ import SnapKit
 class OnboardingCell: UICollectionViewCell {
     private let onboadingImageView: UIImageView = {
         let imageView = UIImageView()
-        
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()

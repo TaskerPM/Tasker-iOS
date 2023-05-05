@@ -13,6 +13,7 @@ class OnboardingViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -43,7 +44,6 @@ class OnboardingViewController: UIViewController {
         setCollectionView()
         configureUI()
         configureButtonAction()
-        
     }
     
     private func setCollectionView() {
