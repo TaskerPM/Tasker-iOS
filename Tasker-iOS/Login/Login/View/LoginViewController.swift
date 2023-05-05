@@ -157,10 +157,23 @@ final class LoginViewController: UIViewController {
         configureUI()
         configureLayout()
         configureButtonAction()
+        setNavigationBar()
         
         viewModel.setDelegate(self)
         phoneNumberTextField.delegate = self
         authNumberTextField.delegate = self
+    }
+    
+    private func setNavigationBar() {
+        let navigationBack = UIImage(named: "navigation_back")
+        let backBarButton = UIBarButtonItem(image: navigationBack, style: .plain, target: self, action: #selector(popToVC))
+        
+        self.navigationItem.leftBarButtonItem = backBarButton
+        self.navigationItem.leftBarButtonItem?.tintColor = .setColor(.gray900)
+    }
+    
+    @objc func popToVC() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func configureButtonAction() {
@@ -327,7 +340,10 @@ extension LoginViewController: LoginViewModelDelegate {
     }
     
     func loginSuccessful() {
-        // 로그인 성공. 다음 화면 푸시
+        let tabbarVC = TabbarController()
+        let sceneDelegate = UIApplication.shared
+        (sceneDelegate.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootVC(tabbarVC, animated: true)
     }
     
     func loginFailed() {
