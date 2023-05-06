@@ -57,9 +57,9 @@ class OnboardingViewController: UIViewController {
             .forEach(view.addSubview)
         
         collectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalToSuperview().offset(84)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(469)
+            $0.bottom.equalToSuperview().inset(259)
         }
         
         pageControl.snp.makeConstraints {
