@@ -22,6 +22,9 @@
 		7AEAC1DA2A0526440019A4A4 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1D92A0526430019A4A4 /* OnboardingModel.swift */; };
 		7AEAC1DC2A0535380019A4A4 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1DB2A0535380019A4A4 /* TabbarController.swift */; };
 		7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */; };
+		7AEAC1E42A0681AE0019A4A4 /* GatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1E32A0681AE0019A4A4 /* GatherViewController.swift */; };
+		7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1E52A0681D00019A4A4 /* BrowseViewController.swift */; };
+		7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEAC1E72A0681EF0019A4A4 /* MyPageViewController.swift */; };
 		7AEE307629F802FA00A61856 /* PTSans-CaptionBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE307329F8017500A61856 /* PTSans-CaptionBold.ttf */; };
 		7AEE307729F802FC00A61856 /* PTSans-Caption.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE307229F8017500A61856 /* PTSans-Caption.ttf */; };
 		7AEE307D29F81ECB00A61856 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7AEE307929F81ECB00A61856 /* Pretendard-Bold.otf */; };
@@ -65,6 +68,9 @@
 		7AEAC1D92A0526430019A4A4 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		7AEAC1DB2A0535380019A4A4 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7AEAC1E32A0681AE0019A4A4 /* GatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatherViewController.swift; sourceTree = "<group>"; };
+		7AEAC1E52A0681D00019A4A4 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		7AEAC1E72A0681EF0019A4A4 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		7AEE307229F8017500A61856 /* PTSans-Caption.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-Caption.ttf"; sourceTree = "<group>"; };
 		7AEE307329F8017500A61856 /* PTSans-CaptionBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-CaptionBold.ttf"; sourceTree = "<group>"; };
 		7AEE307929F81ECB00A61856 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -160,11 +166,14 @@
 				E313DAC029F575BB00DEAF64 /* Source */,
 				7A0BDBF729F7F368001580DE /* Fonts */,
 				E313DABF29F5757200DEAF64 /* Login */,
+				7AEAC1DF2A06811C0019A4A4 /* Home */,
+				7AEAC1E02A06816F0019A4A4 /* Gather */,
+				7AEAC1E12A06817C0019A4A4 /* Browse */,
+				7AEAC1E22A06818A0019A4A4 /* Mypage */,
 				E313DAC129F5760B00DEAF64 /* Network */,
 				7A0BDBF429F7F127001580DE /* Extensions */,
 				7AEE30922A012A9E00A61856 /* WebViewController.swift */,
 				7AEAC1DB2A0535380019A4A4 /* TabbarController.swift */,
-				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
 			);
 			path = "Tasker-iOS";
 			sourceTree = "<group>";
@@ -178,6 +187,38 @@
 				7AEAC1D52A0521340019A4A4 /* CompositionalLayout.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7AEAC1DF2A06811C0019A4A4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7AEAC1E02A06816F0019A4A4 /* Gather */ = {
+			isa = PBXGroup;
+			children = (
+				7AEAC1E32A0681AE0019A4A4 /* GatherViewController.swift */,
+			);
+			path = Gather;
+			sourceTree = "<group>";
+		};
+		7AEAC1E12A06817C0019A4A4 /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				7AEAC1E52A0681D00019A4A4 /* BrowseViewController.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		7AEAC1E22A06818A0019A4A4 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				7AEAC1E72A0681EF0019A4A4 /* MyPageViewController.swift */,
+			);
+			path = Mypage;
 			sourceTree = "<group>";
 		};
 		7AEE307829F81EA000A61856 /* Pretendard */ = {
@@ -360,14 +401,17 @@
 				7AEAC1D42A051D510019A4A4 /* OnboardingViewController.swift in Sources */,
 				E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */,
 				E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */,
+				7AEAC1E42A0681AE0019A4A4 /* GatherViewController.swift in Sources */,
 				7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */,
 				7AEAC1D82A0523340019A4A4 /* OnboardingCell.swift in Sources */,
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
+				7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */,
 				7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */,
 				E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */,
 				7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */,
 				7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */,
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
+				7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */,
 				E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */,
 				E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */,
 				7AEAC1DA2A0526440019A4A4 /* OnboardingModel.swift in Sources */,
