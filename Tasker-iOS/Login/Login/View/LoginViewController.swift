@@ -193,14 +193,12 @@ final class LoginViewController: UIViewController {
     
     private func tappedPrivacyButton(_ action: UIAction) {
         let webVC = WebViewController(linkString: "https://www.naver.com")
-//        self.navigationController?.pushViewController(webVC, animated: true)
-        self.present(webVC, animated: true)
+        self.navigationController?.pushViewController(webVC, animated: true)
     }
     
     private func tappedUserAgreementButton(_ action: UIAction) {
         let webVC = WebViewController(linkString: "https://www.google.com")
-//        self.navigationController?.pushViewController(webVC, animated: true)
-        self.present(webVC, animated: true)
+        self.navigationController?.pushViewController(webVC, animated: true)
     }
 }
 

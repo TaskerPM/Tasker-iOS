@@ -29,8 +29,21 @@ class WebViewController: UIViewController, WKUIDelegate {
         webView.uiDelegate = self
         webView.navigationDelegate = self
         
+        setNavigationBar()
         configureUI()
         loadWebView()
+    }
+    
+    private func setNavigationBar() {
+        let navigationBack = UIImage(named: "navigation_back")
+        let backBarButton = UIBarButtonItem(image: navigationBack, style: .plain, target: self, action: #selector(popToVC))
+        
+        self.navigationItem.leftBarButtonItem = backBarButton
+        self.navigationItem.leftBarButtonItem?.tintColor = .setColor(.gray900)
+    }
+    
+    @objc func popToVC() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func configureUI() {
