@@ -12,8 +12,8 @@ class TabbarController: UITabBarController {
         let homeVC = HomeViewController()
         let homeTabbarImage = UIImage(named: "tabbar_icon1(select)")
         homeVC.tabBarItem = UITabBarItem(title: "홈", image: homeTabbarImage, tag: 0)
-        let vc = UINavigationController(rootViewController: homeVC)
-        return vc
+        
+        return homeVC
     }()
     
     private let gatherViewController: UIViewController = {
