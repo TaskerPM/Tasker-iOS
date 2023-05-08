@@ -42,6 +42,7 @@
 		E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC22A015A0A00DEAF64 /* Timer.swift */; };
 		E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */; };
 		E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */; };
+		E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E313DAD22A0928CD00DEAF64 /* FSCalendar */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
@@ -100,6 +101,7 @@
 				7AEE308A29F93EC500A61856 /* RxRelay in Frameworks */,
 				7AEE308829F93EC500A61856 /* RxCocoa in Frameworks */,
 				7AEE308C29F93EC500A61856 /* RxSwift in Frameworks */,
+				E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */,
 				7AEE308529F93E8D00A61856 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +328,7 @@
 				7AEE308729F93EC500A61856 /* RxCocoa */,
 				7AEE308929F93EC500A61856 /* RxRelay */,
 				7AEE308B29F93EC500A61856 /* RxSwift */,
+				E313DAD22A0928CD00DEAF64 /* FSCalendar */,
 			);
 			productName = "Tasker-iOS";
 			productReference = 7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */;
@@ -358,6 +361,7 @@
 			packageReferences = (
 				7AEE308329F93E8D00A61856 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7AEE308629F93EC500A61856 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 7AC04EAE29D31FE4004BB3E2 /* Products */;
 			projectDirPath = "";
@@ -653,6 +657,14 @@
 				minimumVersion = 6.5.0;
 			};
 		};
+		E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -675,6 +687,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7AEE308629F93EC500A61856 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		E313DAD22A0928CD00DEAF64 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 
