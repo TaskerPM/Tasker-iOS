@@ -18,7 +18,7 @@ final class HomeViewController: UIViewController {
     
     private let calenderButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 24, height: 24)))
-        let image = UIImage(systemName: "calendar")
+        let image = UIImage(named: "Home_calender")
         image?.withRenderingMode(.alwaysOriginal)
         button.setImage(image, for: .normal)
         return button
@@ -27,9 +27,9 @@ final class HomeViewController: UIViewController {
     private let calenderStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 12
+        stackView.spacing = 8
         return stackView
     }()
     
