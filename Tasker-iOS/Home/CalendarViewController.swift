@@ -1,5 +1,5 @@
 //
-//  CalenderViewController.swift
+//  CalendarViewController.swift
 //  Tasker-iOS
 //
 //  Created by Wonbi on 2023/05/08.
@@ -8,20 +8,20 @@
 import UIKit
 import FSCalendar
 
-final class CalenderViewController: UIViewController {
-    private let calenderView: FSCalendar = {
-        let calender = FSCalendar()
-        calender.locale = Locale(identifier: "ko_KR")
-        calender.headerHeight = 44
-        calender.scrollEnabled = false
-        calender.appearance.titleWeekendColor = .setColor(.error)
-        calender.appearance.headerMinimumDissolvedAlpha = .zero
-        calender.appearance.headerDateFormat = "YYYY년 M월"
-        calender.appearance.weekdayFont = .pretendardFont(size: 12, style: .regular)
-        calender.appearance.headerTitleFont = .pretendardFont(size: 15, style: .bold)
-        calender.appearance.titleFont = .pretendardFont(size: 12, style: .regular)
+final class CalendarViewController: UIViewController {
+    private let calendarView: FSCalendar = {
+        let calendar = FSCalendar()
+        calendar.locale = Locale(identifier: "ko_KR")
+        calendar.headerHeight = 44
+        calendar.scrollEnabled = false
+        calendar.appearance.titleWeekendColor = .setColor(.error)
+        calendar.appearance.headerMinimumDissolvedAlpha = .zero
+        calendar.appearance.headerDateFormat = "YYYY년 M월"
+        calendar.appearance.weekdayFont = .pretendardFont(size: 12, style: .regular)
+        calendar.appearance.headerTitleFont = .pretendardFont(size: 15, style: .bold)
+        calendar.appearance.titleFont = .pretendardFont(size: 12, style: .regular)
         
-        return calender
+        return calendar
     }()
     
     private let backwordButton: UIButton = {
@@ -57,23 +57,23 @@ final class CalenderViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         
-        [calenderView, backwordButton, forwordButton].forEach(view.addSubview)
+        [calendarView, backwordButton, forwordButton].forEach(view.addSubview)
     }
     
     private func configureLayout() {
-        calenderView.snp.makeConstraints {
+        calendarView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(29)
         }
         
         backwordButton.snp.makeConstraints {
-            $0.centerY.equalTo(calenderView.calendarHeaderView.collectionView)
+            $0.centerY.equalTo(calendarView.calendarHeaderView.collectionView)
             $0.centerX.equalToSuperview().offset(-view.frame.width * 0.4)
         }
         
         forwordButton.snp.makeConstraints {
-            $0.centerY.equalTo(calenderView.calendarHeaderView.collectionView)
+            $0.centerY.equalTo(calendarView.calendarHeaderView.collectionView)
             $0.centerX.equalToSuperview().offset(view.frame.width * 0.4)
         }
     }
@@ -99,6 +99,6 @@ final class CalenderViewController: UIViewController {
         
         guard let currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? today) else { return }
         self.currentPage = currentPage
-        calenderView.setCurrentPage(currentPage, animated: true)
+        calendarView.setCurrentPage(currentPage, animated: true)
     }
 }

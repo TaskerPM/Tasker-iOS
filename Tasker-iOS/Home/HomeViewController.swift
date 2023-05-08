@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
-    private let calenderButton: UIButton = {
+    private let calendarButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 24, height: 24)))
         let image = UIImage(named: "Home_calender")
         image?.withRenderingMode(.alwaysOriginal)
@@ -24,7 +24,7 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
-    private let calenderStackView: UIStackView = {
+    private let calendarStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -42,24 +42,24 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureUI() {
-        [yearMonthLabel, calenderButton].forEach(calenderStackView.addArrangedSubview)
+        [yearMonthLabel, calendarButton].forEach(calendarStackView.addArrangedSubview)
         
-        view.addSubview(calenderStackView)
+        view.addSubview(calendarStackView)
     }
     
     private func configureLayout() {
-        calenderStackView.snp.makeConstraints {
+        calendarStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(50)
             $0.leading.equalToSuperview().offset(12)
         }
     }
     
     private func configureButtonAction() {
-        calenderButton.addAction(UIAction(handler: calenderButtonAction), for: .touchUpInside)
+        calendarButton.addAction(UIAction(handler: calendarButtonAction), for: .touchUpInside)
     }
     
-    private func calenderButtonAction(_ action: UIAction) {
-        let viewController = CalenderViewController()
+    private func calendarButtonAction(_ action: UIAction) {
+        let viewController = CalendarViewController()
         
         present(viewController, animated: true)
     }

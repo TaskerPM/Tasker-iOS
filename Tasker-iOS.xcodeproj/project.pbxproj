@@ -43,7 +43,7 @@
 		E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */; };
 		E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */; };
 		E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E313DAD22A0928CD00DEAF64 /* FSCalendar */; };
-		E313DAD52A0934BD00DEAF64 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD42A0934BD00DEAF64 /* CalenderViewController.swift */; };
+		E313DAD52A0934BD00DEAF64 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
@@ -86,7 +86,7 @@
 		E313DAC22A015A0A00DEAF64 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthButton.swift; sourceTree = "<group>"; };
-		E313DAD42A0934BD00DEAF64 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
+		E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
-				E313DAD42A0934BD00DEAF64 /* CalenderViewController.swift */,
+				E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 				7AEAC1DC2A0535380019A4A4 /* TabbarController.swift in Sources */,
 				E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */,
 				7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */,
-				E313DAD52A0934BD00DEAF64 /* CalenderViewController.swift in Sources */,
+				E313DAD52A0934BD00DEAF64 /* CalendarViewController.swift in Sources */,
 				E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */,
 				7AEAC1D42A051D510019A4A4 /* OnboardingViewController.swift in Sources */,
 				E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */,
