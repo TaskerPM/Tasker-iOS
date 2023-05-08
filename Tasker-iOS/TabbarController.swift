@@ -35,7 +35,7 @@ class TabbarController: UITabBarController {
     private let mypageViewController: UIViewController = {
         let mypageVC = GatherViewController()
         let mypageTabbarImage = UIImage(named: "tabbar_icon4(select)")
-        mypageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: mypageTabbarImage, tag: 3)
+        mypageVC.tabBarItem = UITabBarItem(title: "마이", image: mypageTabbarImage, tag: 3)
         let vc = UINavigationController(rootViewController: mypageVC)
         return vc
     }()
