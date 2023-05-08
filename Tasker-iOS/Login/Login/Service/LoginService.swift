@@ -31,6 +31,11 @@ struct LoginService {
                 return
             }
             
+            if let message = jsonData.message {
+                completion(.failure(.requestFailed(description: message)))
+                return
+            }
+            
             completion(.success(jsonData))
         }.resume()
     }
