@@ -41,6 +41,8 @@ final class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        calendarView.delegate = self
+        
         configureSheetController()
         configureUI()
         configureLayout()
@@ -99,6 +101,14 @@ final class CalendarViewController: UIViewController {
         
         guard let currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? today) else { return }
         self.currentPage = currentPage
-        calendarView.setCurrentPage(currentPage, animated: true)
+        calendarView.setCurrentPage(currentPage, animated: false)
+    }
+}
+
+extension CalendarViewController: FSCalendarDelegate {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if monthPosition == .previous || monthPosition == .next {
+            calendar.setCurrentPage(date, animated: false)
+        }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 final class HomeViewController: UIViewController {
     private let yearMonthLabel: UILabel = {
@@ -33,8 +34,21 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
+    private let calendarView: FSCalendar = {
+        let calendar = FSCalendar()
+        calendar.scope = .week
+        calendar.weekdayHeight = 0
+        calendar.headerHeight = 0
+        calendar.appearance.titleFont = .pretendardFont(size: 12, style: .regular)
+        calendar.register(HomeCalendarCell.self, forCellReuseIdentifier: "HomeCalendarCell")
+        return calendar
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        calendarView.delegate = self
+        calendarView.dataSource = self
         
         configureUI()
         configureLayout()
@@ -45,12 +59,19 @@ final class HomeViewController: UIViewController {
         [yearMonthLabel, calendarButton].forEach(calendarStackView.addArrangedSubview)
         
         view.addSubview(calendarStackView)
+        view.addSubview(calendarView)
     }
     
     private func configureLayout() {
         calendarStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(50)
             $0.leading.equalToSuperview().offset(12)
+        }
+        
+        calendarView.snp.makeConstraints {
+            $0.top.equalTo(calendarStackView.snp.bottom).offset(13)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(400)
         }
     }
     
@@ -62,5 +83,23 @@ final class HomeViewController: UIViewController {
         let viewController = CalendarViewController()
         
         present(viewController, animated: true)
+    }
+}
+
+extension HomeViewController: FSCalendarDelegate {
+    
+}
+
+extension HomeViewController: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: "HomeCalendarCell", for: date, at: position) as? HomeCalendarCell else { return FSCalendarCell() }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        let isSelected = dateFormatter.string(from: date) == dateFormatter.string(from: Date())
+        
+        cell.setData(isSelectedDate: isSelected, date: date)
+        return cell
     }
 }

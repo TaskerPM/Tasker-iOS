@@ -44,6 +44,7 @@
 		E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */; };
 		E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E313DAD22A0928CD00DEAF64 /* FSCalendar */; };
 		E313DAD52A0934BD00DEAF64 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */; };
+		E313DAD72A0A6D0C00DEAF64 /* HomeCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
@@ -87,6 +88,7 @@
 		E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthButton.swift; sourceTree = "<group>"; };
 		E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarCell.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
+				E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */,
 				E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */,
 			);
 			path = Home;
@@ -412,6 +415,7 @@
 				7AEAC1E42A0681AE0019A4A4 /* GatherViewController.swift in Sources */,
 				7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */,
 				7AEAC1D82A0523340019A4A4 /* OnboardingCell.swift in Sources */,
+				E313DAD72A0A6D0C00DEAF64 /* HomeCalendarCell.swift in Sources */,
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
 				7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */,
 				7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */,
