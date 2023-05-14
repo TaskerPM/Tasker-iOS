@@ -74,7 +74,7 @@ final class CalendarViewModel {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.locale = Locale.autoupdatingCurrent
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM y")
+        dateFormatter.dateFormat = "yyyy년 MM월"
         return dateFormatter
     }()
     
