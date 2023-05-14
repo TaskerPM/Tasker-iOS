@@ -80,8 +80,7 @@ final class HomeViewController: UIViewController {
     }
     
     private func calendarButtonAction(_ action: UIAction) {
-        let viewController = CalendarViewController()
-        
+        let viewController = NSCalendarViewController()
         present(viewController, animated: true)
     }
 }
