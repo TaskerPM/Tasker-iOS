@@ -42,11 +42,7 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let requestAuthButton: RequestAuthButton = {
-        let button = RequestAuthButton()
-        button.initButton(isActive: false)
-        return button
-    }()
+    private let requestAuthButton = RequestAuthButton()
     
     private let authNumberStackView: UIStackView = {
         let stackView = UIStackView()
@@ -293,12 +289,14 @@ extension LoginViewController: LoginViewModelDelegate {
     func enableAuthButton() {
         requestAuthButton.changeState(.active)
         phoneNumberErrorLabel.isHidden = true
+        authNumberStackView.isHidden = true
         configurePhoneNumberErrorLabelLayout()
     }
     
     func disableAuthButton() {
         requestAuthButton.changeState(.inactive)
         phoneNumberErrorLabel.isHidden = false
+        authNumberStackView.isHidden = true
         configurePhoneNumberErrorLabelLayout()
     }
     
@@ -309,7 +307,7 @@ extension LoginViewController: LoginViewModelDelegate {
             self.authNumberTextField.becomeFirstResponder()
             self.authNumberErrorLabel.isHidden = true
             
-            self.requestAuthButton.changeState(.redemanded, remainCount: remainCount)
+            self.requestAuthButton.changeState(.redemanded(count: remainCount))
         }
     }
     

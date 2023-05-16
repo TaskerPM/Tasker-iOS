@@ -8,93 +8,88 @@
 import UIKit
 
 final class RequestAuthButton: UIButton {
-    enum State {
+    enum State: Equatable {
         case inactive
         case active
-        case redemanded
-        case expired
+        case redemanded(count: Int)
+        case expired(time: Int)
     }
     
     private var currentState: State = .inactive
     
     override init(frame: CGRect = CGRect(origin: CGPoint(), size: CGSize())) {
         super.init(frame: frame)
-        initButton()
+        initToRequest(isActive: false)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeState(_ state: State, remainCount: Int = 0, remainTime: Int = 0) {
+    func changeState(_ state: State) {
         switch state {
         case .inactive:
             makeInactive()
         case .active:
             makeActive()
-        case .redemanded:
+        case .redemanded(let remainCount):
             makeRedemanded(remainCount: remainCount)
-        case .expired:
+        case .expired(let remainTime):
             makeExpired(remainTime: remainTime)
         }
     }
     
-    func initButton(isActive: Bool) {
-        initButton()
-        
-        if isActive {
-            currentState = .inactive
-            makeActive()
-        } else {
-            currentState = .active
-            makeInactive()
-        }
-    }
-    
-    private func initButton() {
+    private func initToRequest(isActive: Bool) {
         self.setTitle("인증번호 받기", for: .normal)
         self.setTitleColor(.setColor(.white), for: .normal)
+        self.layer.borderWidth = 0
         self.layer.cornerRadius = 10
-        self.isEnabled = false
+        self.isEnabled = isActive ? true : false
         self.titleLabel?.font = .pretendardFont(size: 14, style: .semiBold)
-        self.backgroundColor = .setColor(.gray100)
+        self.backgroundColor = isActive ? .setColor(.basicBlack) : .setColor(.gray100)
+    }
+    
+    private func initToConfirm() {
+        self.setTitleColor(.setColor(.gray300), for: .normal)
+        self.backgroundColor = .white
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.setColor(.gray300).cgColor
     }
     
     private func makeInactive() {
-        guard currentState == .active else { return }
-        currentState = .inactive
+        if currentState == .active {
+            self.isEnabled = false
+            self.backgroundColor = .setColor(.gray100)
+        } else {
+            initToRequest(isActive: false)
+        }
         
-        self.isEnabled = false
-        self.backgroundColor = .setColor(.gray100)
+        currentState = .inactive
     }
     
     private func makeActive() {
-        guard currentState == .inactive else { return }
-        currentState = .active
+        if currentState == .inactive {
+            self.isEnabled = true
+            self.backgroundColor = .setColor(.basicBlack)
+        } else {
+            initToRequest(isActive: true)
+        }
         
-        self.isEnabled = true
-        self.backgroundColor = .setColor(.basicBlack)
+        currentState = .active
     }
     
     private func makeRedemanded(remainCount: Int) {
-        currentState = .redemanded
+        currentState = .redemanded(count: remainCount)
         
+        initToConfirm()
         self.setTitle("인증번호 다시 받기(\(remainCount)회 남음)", for: .normal)
-        self.setTitleColor(.setColor(.gray300), for: .normal)
-        self.backgroundColor = .white
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.setColor(.gray300).cgColor
     }
     
     private func makeExpired(remainTime: Int) {
-        guard currentState == .redemanded else { return }
-        currentState = .expired
+        currentState = .expired(time: remainTime)
         let time: String = remainTime == 60 ? "1시간" : "\(remainTime)분"
         
+        initToConfirm()
         self.setTitle("시도 횟수가 초과되었습니다. \(time) 후 다시 시도해주세요.", for: .normal)
-        self.setTitleColor(.setColor(.gray300), for: .normal)
-        self.backgroundColor = .white
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.setColor(.gray300).cgColor
     }
 }

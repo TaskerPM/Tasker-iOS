@@ -89,6 +89,7 @@ final class LoginViewModel {
         service.requestLogin(phoneNumber: number) { [weak self] result in
             switch result {
             case .success(let loginResponse):
+                print(loginResponse.message, "인증번호: \(loginResponse.value)")
                 self?.stopTimer()
                 self?.authKey = loginResponse.value
                 // 서버에서 남은 횟수 받아와야 함 API 수정 필요

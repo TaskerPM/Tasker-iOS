@@ -7,7 +7,7 @@
 
 struct SMSSendResponse: Decodable {
     let value: String
-    let message: String?
+    let message: String
 }
 
 struct SMSSendRequest: Encodable {
