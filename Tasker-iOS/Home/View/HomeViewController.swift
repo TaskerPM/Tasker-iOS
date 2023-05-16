@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FSCalendar
+import SnapKit
 
 final class HomeViewController: UIViewController {
     private let yearMonthLabel: UILabel = {
@@ -34,32 +34,26 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
-    private let calendarView: FSCalendar = {
-        let calendar = FSCalendar()
-        calendar.scope = .week
-        calendar.weekdayHeight = 0
-        calendar.headerHeight = 0
-        calendar.appearance.titleFont = .pretendardFont(size: 12, style: .regular)
-        calendar.register(HomeCalendarCell.self, forCellReuseIdentifier: "HomeCalendarCell")
-        return calendar
+    private let calendarCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(HomeCalendarCell.self, forCellWithReuseIdentifier: "HomeCalendarCell")
+        collectionView.layer.borderWidth = 1
+        return collectionView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        calendarView.delegate = self
-        calendarView.dataSource = self
-        
+
         configureUI()
         configureLayout()
         configureButtonAction()
+        configureCollectionView()
     }
     
     private func configureUI() {
         [yearMonthLabel, calendarButton].forEach(calendarStackView.addArrangedSubview)
-        
-        view.addSubview(calendarStackView)
-        view.addSubview(calendarView)
+        [calendarStackView, calendarCollectionView].forEach(view.addSubview)
     }
     
     private func configureLayout() {
@@ -68,11 +62,17 @@ final class HomeViewController: UIViewController {
             $0.leading.equalToSuperview().offset(12)
         }
         
-        calendarView.snp.makeConstraints {
-            $0.top.equalTo(calendarStackView.snp.bottom).offset(13)
+        calendarCollectionView.snp.makeConstraints {
+            $0.top.equalTo(calendarStackView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(400)
+            $0.height.equalTo(73)
         }
+    }
+    
+    private func configureCollectionView() {
+        calendarCollectionView.dataSource = self
+        calendarCollectionView.delegate = self
+        calendarCollectionView.collectionViewLayout = createLayout()
     }
     
     private func configureButtonAction() {
@@ -80,25 +80,36 @@ final class HomeViewController: UIViewController {
     }
     
     private func calendarButtonAction(_ action: UIAction) {
-        let viewController = NSCalendarViewController()
+        let viewController = CalendarViewController()
         present(viewController, animated: true)
     }
 }
 
-extension HomeViewController: FSCalendarDelegate {
+extension HomeViewController: UICollectionViewDelegate {
     
 }
 
-extension HomeViewController: FSCalendarDataSource {
-    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        guard let cell = calendar.dequeueReusableCell(withIdentifier: "HomeCalendarCell", for: date, at: position) as? HomeCalendarCell else { return FSCalendarCell() }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
-        
-        let isSelected = dateFormatter.string(from: date) == dateFormatter.string(from: Date())
-        
-        cell.setData(isSelectedDate: isSelected, date: date)
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCalendarCell", for: indexPath) as? HomeCalendarCell else { return UICollectionViewCell() }
         return cell
+    }
+    
+    
+}
+
+extension HomeViewController {
+    func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+            let item = CompositionalLayout.createItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1), spacing: 0)
+            let group = CompositionalLayout.createGroup(alignment: .horizontal, width: .fractionalWidth(1), height: .fractionalHeight(1), subitem: item, count: 7)
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
     }
 }
