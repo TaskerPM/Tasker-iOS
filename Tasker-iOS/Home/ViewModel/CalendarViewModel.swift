@@ -51,13 +51,8 @@ enum CalendarDataError: Error {
     case metadataGeneration
 }
 
-protocol CalendarViewModelDelegate: AnyObject {
-    func popedCalendar()
-    func movedMonth()
-}
-
 final class CalendarViewModel {
-//    typealias DateHandler = (Date) -> Void
+    typealias ChangedDateCompletion = () -> Void
     
     enum Action {
         case selectDate(_ date: Date)
@@ -66,12 +61,15 @@ final class CalendarViewModel {
         case popCalendar
     }
     
-    //    private let changedBaseDateHandler: DateHandler
     let dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"]
+    private var changedBaseDateForMonthCompletion: ChangedDateCompletion?
+    private var changedBaseDateForWeekCompletion: ChangedDateCompletion?
     private let calendar = Calendar(identifier: .gregorian)
+    
     private var baseDate: Date {
         didSet {
             days = generateDaysInMonth(for: baseDate)
+            changedBaseDateForMonthCompletion?()
         }
     }
     
@@ -80,14 +78,9 @@ final class CalendarViewModel {
             days = generateDaysInMonth(for: self.baseDate)
         }
     }
+    
     private(set) var days: [Day] = []
     private(set) var daysForWeek: [Day] = []
-    private weak var delegate: CalendarViewModelDelegate?
-    
-    /// baseDate가 속한 달에서 주(week)의 수는 몇개인지 반환
-    var numberOfWeeksInBaseDate: Int {
-        calendar.range(of: .weekOfMonth, in: .month, for: baseDate)?.count ?? 0
-    }
     
     private let dateFormatterOnlyD: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -106,13 +99,13 @@ final class CalendarViewModel {
         return dateFormatterCalendarTitle.string(from: baseDate)
     }
     
-    init(baseDate: Date = Date(), delegate: CalendarViewModelDelegate) {
+    init() {
+        let baseDate = Date()
         self.baseDate = baseDate
-        self.delegate = delegate
-//        self.changedBaseDateHandler = changedBaseDateHandler
         self.selectedDate = baseDate
-        days = generateDaysInMonth(for: self.baseDate)
-        daysForWeek = generateDaysInWeek(for: self.baseDate)
+        
+        days = generateDaysInMonth(for: baseDate)
+        daysForWeek = generateDaysInWeek(for: baseDate)
     }
     
     // MARK: - Methods
@@ -122,17 +115,23 @@ final class CalendarViewModel {
             selectedDate = date
         case .moveMonth(let value):
             baseDate = calendar.date(byAdding: .month, value: value, to: baseDate) ?? baseDate
-            delegate?.movedMonth()
         case .today:
             let components = self.calendar.dateComponents([.year, .month, .day], from: Date())
             let currentDate = self.calendar.date(from: components) ?? Date()
             baseDate = currentDate
             selectedDate = currentDate
-            delegate?.movedMonth()
         case .popCalendar:
             daysForWeek = generateDaysInWeek(for: selectedDate)
-            delegate?.popedCalendar()
+            changedBaseDateForWeekCompletion?()
         }
+    }
+    
+    func configureChangedBaseDateForMonthCompletion(_ completion: @escaping ChangedDateCompletion) {
+        changedBaseDateForMonthCompletion = completion
+    }
+    
+    func configureChangedBaseDateForWeekCompletion(_ completion: @escaping ChangedDateCompletion) {
+        changedBaseDateForWeekCompletion = completion
     }
     
     // MARK: - Generating a Month’s Metadata

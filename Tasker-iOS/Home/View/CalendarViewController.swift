@@ -78,6 +78,11 @@ class CalendarViewController: UIViewController {
         configureCollectionView()
         configureButtonAction()
         
+        calendarViewModel?.configureChangedBaseDateForMonthCompletion { [weak self] in
+            self?.yearWeekLabel.text = self?.calendarViewModel?.localizedCalendarTitle
+            self?.collectionView.reloadData()
+        }
+        
         yearWeekLabel.text = calendarViewModel?.localizedCalendarTitle
     }
     

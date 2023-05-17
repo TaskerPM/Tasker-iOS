@@ -51,7 +51,11 @@ final class HomeViewController: UIViewController {
         configureButtonAction()
         configureCollectionView()
         
-        calendarViewModel = CalendarViewModel(delegate: self)
+        calendarViewModel = CalendarViewModel()
+        calendarViewModel?.configureChangedBaseDateForWeekCompletion { [weak self] in
+            self?.yearMonthLabel.text = self?.calendarViewModel?.localizedCalendarTitle
+            self?.calendarCollectionView.reloadData()
+        }
         
         yearMonthLabel.text = calendarViewModel?.localizedCalendarTitle
     }
@@ -126,15 +130,5 @@ extension HomeViewController {
             let section = NSCollectionLayoutSection(group: group)
             return section
         }
-    }
-}
-
-extension HomeViewController: CalendarViewModelDelegate {
-    func movedMonth() {
-        yearMonthLabel.text = calendarViewModel?.localizedCalendarTitle
-    }
-    
-    func popedCalendar() {
-        calendarCollectionView.reloadData()
     }
 }
