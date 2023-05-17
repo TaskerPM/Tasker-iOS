@@ -86,10 +86,16 @@ class CalendarViewController: UIViewController {
         yearWeekLabel.text = calendarViewModel?.localizedCalendarTitle
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        calendarViewModel?.action(.pushCalendarView)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        calendarViewModel?.action(.popCalendar)
+        calendarViewModel?.action(.popCalendarView)
     }
 
     private func configureCollectionView() {
@@ -163,9 +169,6 @@ class CalendarViewController: UIViewController {
 extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 0:
-            guard let daysOfWeek = calendarViewModel?.dayOfTheWeek[indexPath.item] else { return }
-            print(daysOfWeek)
         case 1:
             guard let day = calendarViewModel?.days[indexPath.item] else { return }
             
