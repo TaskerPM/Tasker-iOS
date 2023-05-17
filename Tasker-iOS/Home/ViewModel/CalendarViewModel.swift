@@ -35,45 +35,69 @@ struct MonthMetadata {
     let firstDayWeekday: Int
 }
 
+struct WeekMetadata {
+    enum Week: Equatable {
+        case first(firstDayWeekday: Int)
+        case normal
+        case last
+    }
+    
+    let week: Week
+    let firstDay: Date
+    let rangeOfDays: Range<Int>
+}
+
 enum CalendarDataError: Error {
     case metadataGeneration
 }
 
+protocol CalendarViewModelDelegate: AnyObject {
+    func popedCalendar()
+    func movedMonth()
+}
+
 final class CalendarViewModel {
-    typealias DateHandler = (Date) -> Void
-    private let calendar = Calendar(identifier: .gregorian)
-    let changedBaseDateHandler: DateHandler
+//    typealias DateHandler = (Date) -> Void
+    
+    enum Action {
+        case selectDate(_ date: Date)
+        case moveMonth(value: Int)
+        case today
+        case popCalendar
+    }
+    
+    //    private let changedBaseDateHandler: DateHandler
     let dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"]
+    private let calendar = Calendar(identifier: .gregorian)
     private var baseDate: Date {
         didSet {
             days = generateDaysInMonth(for: baseDate)
-            changedBaseDateHandler(baseDate)
         }
     }
     
-    var selectedDate: Date {
+    private var selectedDate: Date {
         didSet {
             days = generateDaysInMonth(for: self.baseDate)
         }
     }
-    
     private(set) var days: [Day] = []
+    private(set) var daysForWeek: [Day] = []
+    private weak var delegate: CalendarViewModelDelegate?
     
     /// baseDate가 속한 달에서 주(week)의 수는 몇개인지 반환
     var numberOfWeeksInBaseDate: Int {
         calendar.range(of: .weekOfMonth, in: .month, for: baseDate)?.count ?? 0
     }
     
-    private lazy var dateFormatterOnlyD: DateFormatter = {
+    private let dateFormatterOnlyD: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
         return dateFormatter
     }()
     
-    private lazy var dateFormatterCalendarTitle: DateFormatter = {
+    private let dateFormatterCalendarTitle: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale.autoupdatingCurrent
         dateFormatter.dateFormat = "yyyy년 MM월"
         return dateFormatter
     }()
@@ -82,17 +106,33 @@ final class CalendarViewModel {
         return dateFormatterCalendarTitle.string(from: baseDate)
     }
     
-    init(baseDate: Date, changedBaseDateHandler: @escaping DateHandler) {
+    init(baseDate: Date = Date(), delegate: CalendarViewModelDelegate) {
         self.baseDate = baseDate
-        self.changedBaseDateHandler = changedBaseDateHandler
+        self.delegate = delegate
+//        self.changedBaseDateHandler = changedBaseDateHandler
         self.selectedDate = baseDate
         days = generateDaysInMonth(for: self.baseDate)
+        daysForWeek = generateDaysInWeek(for: self.baseDate)
     }
     
     // MARK: - Methods
-    
-    func moveMonth(value: Int) {
-        baseDate = calendar.date(byAdding: .month, value: value, to: baseDate) ?? baseDate
+    func action(_ action: Action) {
+        switch action {
+        case .selectDate(let date):
+            selectedDate = date
+        case .moveMonth(let value):
+            baseDate = calendar.date(byAdding: .month, value: value, to: baseDate) ?? baseDate
+            delegate?.movedMonth()
+        case .today:
+            let components = self.calendar.dateComponents([.year, .month, .day], from: Date())
+            let currentDate = self.calendar.date(from: components) ?? Date()
+            baseDate = currentDate
+            selectedDate = currentDate
+            delegate?.movedMonth()
+        case .popCalendar:
+            daysForWeek = generateDaysInWeek(for: selectedDate)
+            delegate?.popedCalendar()
+        }
     }
     
     // MARK: - Generating a Month’s Metadata
@@ -182,9 +222,61 @@ final class CalendarViewModel {
         days += generateStartOfNextMonth(using: firstDayOfMonth)
         return days
     }
+    // MARK: - Generating a Week’s Metadata
     
-    func today() {
-        let components = self.calendar.dateComponents([.year, .month], from: Date())
-        baseDate = self.calendar.date(from: components) ?? Date()
+    private func weekMatadata(for baseDate: Date) throws -> WeekMetadata {
+        guard
+            let rangeOfDaysInWeek = calendar.range(of: .day, in: .weekOfMonth, for: baseDate),
+            let lastDayOfBasedWeek = rangeOfDaysInWeek.last,
+            let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: baseDate))
+        else {
+            throw CalendarDataError.metadataGeneration
+        }
+        
+        let firstDayWeekday = calendar.component(.weekday, from: firstDayOfMonth)
+        let numberOfDaysInWeek = rangeOfDaysInWeek.count
+        
+        let week: WeekMetadata.Week
+        if lastDayOfBasedWeek < 7 {
+            week = .first(firstDayWeekday: firstDayWeekday)
+        } else if numberOfDaysInWeek < 7 {
+            week = .last
+        } else {
+            week = .normal
+        }
+        
+        return WeekMetadata(week: week, firstDay: firstDayOfMonth, rangeOfDays: rangeOfDaysInWeek)
+    }
+    
+    private func generateDaysInWeek(for baseDate: Date) -> [Day] {
+        guard let metadata = try? weekMatadata(for: baseDate) else {
+            fatalError("An error occurred when generating the metadata for \(baseDate)")
+        }
+        
+        let firstDayOfMonth = metadata.firstDay
+        
+        var days: [Day]
+        switch metadata.week {
+        case .first(let firstDayWeekday):
+            days = (1...7).map { day in
+                let isWithinDisplayedMonth = day >= firstDayWeekday
+                let dayOffset = isWithinDisplayedMonth ? day - firstDayWeekday : -(firstDayWeekday - day)
+                
+                return generateDay(offsetBy: dayOffset, for: firstDayOfMonth, isWithinDisplayedMonth: isWithinDisplayedMonth)
+            }
+        case .normal:
+            days = metadata.rangeOfDays.map { day in
+                let dayOffset = day - 1
+                return generateDay(offsetBy: dayOffset, for: firstDayOfMonth, isWithinDisplayedMonth: true)
+            }
+        case .last:
+            days = metadata.rangeOfDays.map { day in
+                let dayOffset = day - 1
+                return generateDay(offsetBy: dayOffset, for: firstDayOfMonth, isWithinDisplayedMonth: true)
+            }
+            days += generateStartOfNextMonth(using: firstDayOfMonth)
+        }
+        
+        return days
     }
 }

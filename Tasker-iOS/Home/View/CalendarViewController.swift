@@ -5,7 +5,6 @@
 //  Created by mingmac on 2023/05/11.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 
@@ -57,7 +56,17 @@ class CalendarViewController: UIViewController {
         return stackView
     }()
     
-    private var calendarViewModel: CalendarViewModel?
+    private let calendarViewModel: CalendarViewModel?
+    
+    init(calendarViewModel: CalendarViewModel?) {
+        self.calendarViewModel = calendarViewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +77,14 @@ class CalendarViewController: UIViewController {
         configureSheetController()
         configureCollectionView()
         configureButtonAction()
-
-        calendarViewModel = CalendarViewModel(baseDate: Date(), changedBaseDateHandler: { _ in
-            self.collectionView.reloadData()
-            self.yearWeekLabel.text = self.calendarViewModel?.localizedCalendarTitle
-        })
         
         yearWeekLabel.text = calendarViewModel?.localizedCalendarTitle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        calendarViewModel?.action(.popCalendar)
     }
 
     private func configureCollectionView() {
@@ -130,15 +140,18 @@ class CalendarViewController: UIViewController {
     }
     
     private func didPreviousButtonTouched(_ action: UIAction) {
-        calendarViewModel?.moveMonth(value: -1)
+        calendarViewModel?.action(.moveMonth(value: -1))
+        collectionView.reloadData()
     }
     
     private func didNextButtonTouched(_ action: UIAction) {
-        calendarViewModel?.moveMonth(value: 1)
+        calendarViewModel?.action(.moveMonth(value: 1))
+        collectionView.reloadData()
     }
     
     private func didTodayButtonTouched(_ action: UIAction) {
-        calendarViewModel?.today()
+        calendarViewModel?.action(.today)
+        collectionView.reloadData()
     }
 }
 
@@ -150,9 +163,9 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
             print(daysOfWeek)
         case 1:
             guard let day = calendarViewModel?.days[indexPath.item] else { return }
-            calendarViewModel?.selectedDate = day.date
+            
+            calendarViewModel?.action(.selectDate(day.date))
             collectionView.reloadData()
-            print(day.number)
         default:
             return
         }
@@ -163,6 +176,7 @@ extension CalendarViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:

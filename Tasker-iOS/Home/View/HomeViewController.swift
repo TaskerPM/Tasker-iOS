@@ -13,7 +13,6 @@ final class HomeViewController: UIViewController {
         let label = UILabel()
         label.font = .pretendardFont(size: 16, style: .bold)
         label.textColor = .setColor(.basicBlack)
-        label.text = "2023년 5월"
         return label
     }()
     
@@ -38,9 +37,11 @@ final class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(HomeCalendarCell.self, forCellWithReuseIdentifier: "HomeCalendarCell")
-        collectionView.layer.borderWidth = 1
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
+    
+    private var calendarViewModel: CalendarViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,10 @@ final class HomeViewController: UIViewController {
         configureLayout()
         configureButtonAction()
         configureCollectionView()
+        
+        calendarViewModel = CalendarViewModel(delegate: self)
+        
+        yearMonthLabel.text = calendarViewModel?.localizedCalendarTitle
     }
     
     private func configureUI() {
@@ -65,7 +70,7 @@ final class HomeViewController: UIViewController {
         calendarCollectionView.snp.makeConstraints {
             $0.top.equalTo(calendarStackView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(73)
+            $0.height.equalTo(61)
         }
     }
     
@@ -80,7 +85,8 @@ final class HomeViewController: UIViewController {
     }
     
     private func calendarButtonAction(_ action: UIAction) {
-        let viewController = CalendarViewController()
+        let viewController = CalendarViewController(calendarViewModel: calendarViewModel)
+        
         present(viewController, animated: true)
     }
 }
@@ -96,20 +102,39 @@ extension HomeViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCalendarCell", for: indexPath) as? HomeCalendarCell else { return UICollectionViewCell() }
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCalendarCell", for: indexPath) as? HomeCalendarCell,
+            let calendarViewModel = calendarViewModel
+        else {
+            return UICollectionViewCell()
+        }
+        
+        let day = calendarViewModel.daysForWeek[indexPath.item]
+        let week = calendarViewModel.dayOfTheWeek[indexPath.item]
+        
+        cell.configureCell(week: week, day: day.number, isSelected: day.isSelected)
         return cell
     }
-    
-    
 }
 
 extension HomeViewController {
     func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             let item = CompositionalLayout.createItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1), spacing: 0)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
             let group = CompositionalLayout.createGroup(alignment: .horizontal, width: .fractionalWidth(1), height: .fractionalHeight(1), subitem: item, count: 7)
             let section = NSCollectionLayoutSection(group: group)
             return section
         }
+    }
+}
+
+extension HomeViewController: CalendarViewModelDelegate {
+    func movedMonth() {
+        yearMonthLabel.text = calendarViewModel?.localizedCalendarTitle
+    }
+    
+    func popedCalendar() {
+        calendarCollectionView.reloadData()
     }
 }
