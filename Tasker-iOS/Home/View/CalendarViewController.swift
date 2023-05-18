@@ -74,7 +74,6 @@ class CalendarViewController: UIViewController {
         
         configureUI()
         configureLayout()
-        configureSheetController()
         configureCollectionView()
         configureButtonAction()
         
@@ -96,6 +95,11 @@ class CalendarViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         calendarViewModel?.action(.popCalendarView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        view.layer.cornerRadius = 22
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 
     private func configureCollectionView() {
@@ -134,16 +138,7 @@ class CalendarViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
     }
-    
-    private func configureSheetController() {
-        guard let sheet = self.sheetPresentationController else { return }
-        
-        sheet.detents = [.medium()]
-        sheet.selectedDetentIdentifier = .medium
-        sheet.largestUndimmedDetentIdentifier = .large
-        sheet.preferredCornerRadius = 22
-    }
-    
+
     private func configureButtonAction() {
         previousButton.addAction(UIAction(handler: didPreviousButtonTouched), for: .touchUpInside)
         todayButton.addAction(UIAction(handler: didTodayButtonTouched), for: .touchUpInside)
@@ -233,7 +228,6 @@ extension CalendarViewController {
                 let horizontalDaysGroup = CompositionalLayout.createGroup(alignment: .horizontal, width: .fractionalWidth(1), height: .fractionalWidth(0.3), subitem: daysItem, count: 7)
                 let verticalDaysGroup = CompositionalLayout.createGroup(alignment: .vertical, width: .fractionalWidth(1), height: .fractionalWidth(1), subitem: horizontalDaysGroup, count: 7)
                 let section = NSCollectionLayoutSection(group: verticalDaysGroup)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
                 return section
             default:
                 return nil
