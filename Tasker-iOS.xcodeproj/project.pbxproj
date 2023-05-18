@@ -14,6 +14,7 @@
 		7A1637EA2A0D56430055F8EC /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637E92A0D56430055F8EC /* CalendarCell.swift */; };
 		7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */; };
 		7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */; };
+		7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -63,6 +64,7 @@
 		7A1637E92A0D56430055F8EC /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarCell.swift; sourceTree = "<group>"; };
+		7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewPresentationController.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
+				7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */,
 				7A1637E72A0CEB7C0055F8EC /* CalendarViewController.swift */,
 				7A1637EF2A0EC75F0055F8EC /* Cell */,
 			);
@@ -463,6 +466,7 @@
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
 				7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */,
 				E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */,
+				7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */,
 				7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */,
 				E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */,
 				E3229D002A151623006D9BB5 /* CalendarModel.swift in Sources */,
