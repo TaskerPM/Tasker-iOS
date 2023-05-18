@@ -89,9 +89,10 @@ final class HomeViewController: UIViewController {
     }
     
     private func calendarButtonAction(_ action: UIAction) {
-        let viewController = CalendarViewController(calendarViewModel: calendarViewModel)
-        
-        present(viewController, animated: true)
+        let calendarVC = CalendarViewController(calendarViewModel: calendarViewModel)
+        calendarVC.modalPresentationStyle = .custom
+        calendarVC.transitioningDelegate = self
+        present(calendarVC, animated: true)
     }
 }
 
@@ -130,5 +131,11 @@ extension HomeViewController {
             let section = NSCollectionLayoutSection(group: group)
             return section
         }
+    }
+}
+
+extension HomeViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return CalendarViewPresentationController(presentedViewController: presented, presenting: presentingViewController)
     }
 }
