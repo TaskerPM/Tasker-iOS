@@ -10,6 +10,11 @@
 		7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BDBF229F7F11B001580DE /* UIFont+.swift */; };
 		7A0BDBF629F7F153001580DE /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0BDBF529F7F153001580DE /* UIColor+.swift */; };
 		7A0BDBFF29F7FD49001580DE /* Mattone-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0BDBFE29F7FD49001580DE /* Mattone-Regular.otf */; };
+		7A1637E82A0CEB7C0055F8EC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637E72A0CEB7C0055F8EC /* CalendarViewController.swift */; };
+		7A1637EA2A0D56430055F8EC /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637E92A0D56430055F8EC /* CalendarCell.swift */; };
+		7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */; };
+		7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */; };
+		7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -42,21 +47,24 @@
 		E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC22A015A0A00DEAF64 /* Timer.swift */; };
 		E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */; };
 		E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */; };
-		E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E313DAD22A0928CD00DEAF64 /* FSCalendar */; };
-		E313DAD52A0934BD00DEAF64 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */; };
-		E313DAD72A0A6D0C00DEAF64 /* HomeCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */; };
 		E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3429F0072700F6C9FB /* LoginModel.swift */; };
 		E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3629F007AA00F6C9FB /* LoginService.swift */; };
 		E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */; };
 		E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3A29F0084900F6C9FB /* NetworkRequest.swift */; };
 		E3220B3D29F009EC00F6C9FB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3C29F009EC00F6C9FB /* LoginViewModel.swift */; };
 		E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3220B3E29F014B100F6C9FB /* URLSessionError.swift */; };
+		E3229D002A151623006D9BB5 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3229CFF2A151623006D9BB5 /* CalendarModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7A0BDBF229F7F11B001580DE /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		7A0BDBF529F7F153001580DE /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		7A0BDBFE29F7FD49001580DE /* Mattone-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mattone-Regular.otf"; sourceTree = "<group>"; };
+		7A1637E72A0CEB7C0055F8EC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		7A1637E92A0D56430055F8EC /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarCell.swift; sourceTree = "<group>"; };
+		7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewPresentationController.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,14 +95,13 @@
 		E313DAC22A015A0A00DEAF64 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E313DAC62A03FDEA00DEAF64 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		E313DAC82A04146600DEAF64 /* RequestAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthButton.swift; sourceTree = "<group>"; };
-		E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarCell.swift; sourceTree = "<group>"; };
 		E3220B3429F0072700F6C9FB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		E3220B3629F007AA00F6C9FB /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E3220B3829F007EF00F6C9FB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		E3220B3A29F0084900F6C9FB /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		E3220B3C29F009EC00F6C9FB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E3220B3E29F014B100F6C9FB /* URLSessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionError.swift; sourceTree = "<group>"; };
+		E3229CFF2A151623006D9BB5 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +112,6 @@
 				7AEE308A29F93EC500A61856 /* RxRelay in Frameworks */,
 				7AEE308829F93EC500A61856 /* RxCocoa in Frameworks */,
 				7AEE308C29F93EC500A61856 /* RxSwift in Frameworks */,
-				E313DAD32A0928CD00DEAF64 /* FSCalendar in Frameworks */,
 				7AEE308529F93E8D00A61856 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +154,34 @@
 				7AEE307229F8017500A61856 /* PTSans-Caption.ttf */,
 			);
 			path = SansCaption;
+			sourceTree = "<group>";
+		};
+		7A1637ED2A0EC7460055F8EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7A1637EE2A0EC7500055F8EC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
+				7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */,
+				7A1637E72A0CEB7C0055F8EC /* CalendarViewController.swift */,
+				7A1637EF2A0EC75F0055F8EC /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7A1637EF2A0EC75F0055F8EC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7A1637E92A0D56430055F8EC /* CalendarCell.swift */,
+				7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		7AC04EA429D31FE4004BB3E2 = {
@@ -198,9 +232,9 @@
 		7AEAC1DF2A06811C0019A4A4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7AEAC1DD2A05355F0019A4A4 /* HomeViewController.swift */,
-				E313DAD62A0A6D0C00DEAF64 /* HomeCalendarCell.swift */,
-				E313DAD42A0934BD00DEAF64 /* CalendarViewController.swift */,
+				E3229CFE2A15160E006D9BB5 /* Model */,
+				7A1637EE2A0EC7500055F8EC /* View */,
+				7A1637ED2A0EC7460055F8EC /* ViewModel */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -313,6 +347,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		E3229CFE2A15160E006D9BB5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E3229CFF2A151623006D9BB5 /* CalendarModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,7 +376,6 @@
 				7AEE308729F93EC500A61856 /* RxCocoa */,
 				7AEE308929F93EC500A61856 /* RxRelay */,
 				7AEE308B29F93EC500A61856 /* RxSwift */,
-				E313DAD22A0928CD00DEAF64 /* FSCalendar */,
 			);
 			productName = "Tasker-iOS";
 			productReference = 7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */;
@@ -367,7 +408,6 @@
 			packageReferences = (
 				7AEE308329F93E8D00A61856 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7AEE308629F93EC500A61856 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 7AC04EAE29D31FE4004BB3E2 /* Products */;
 			projectDirPath = "";
@@ -407,16 +447,17 @@
 				7AEAC1DC2A0535380019A4A4 /* TabbarController.swift in Sources */,
 				E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */,
 				7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */,
-				E313DAD52A0934BD00DEAF64 /* CalendarViewController.swift in Sources */,
 				E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */,
 				7AEAC1D42A051D510019A4A4 /* OnboardingViewController.swift in Sources */,
+				7A1637EA2A0D56430055F8EC /* CalendarCell.swift in Sources */,
 				E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */,
 				E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */,
 				7AEAC1E42A0681AE0019A4A4 /* GatherViewController.swift in Sources */,
 				7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */,
+				7A1637E82A0CEB7C0055F8EC /* CalendarViewController.swift in Sources */,
 				7AEAC1D82A0523340019A4A4 /* OnboardingCell.swift in Sources */,
-				E313DAD72A0A6D0C00DEAF64 /* HomeCalendarCell.swift in Sources */,
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
+				7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */,
 				7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */,
 				7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */,
 				E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */,
@@ -425,7 +466,10 @@
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
 				7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */,
 				E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */,
+				7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */,
+				7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */,
 				E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */,
+				E3229D002A151623006D9BB5 /* CalendarModel.swift in Sources */,
 				7AEAC1DA2A0526440019A4A4 /* OnboardingModel.swift in Sources */,
 				7AEAC1D62A0521340019A4A4 /* CompositionalLayout.swift in Sources */,
 				7A0BDBF629F7F153001580DE /* UIColor+.swift in Sources */,
@@ -665,14 +709,6 @@
 				minimumVersion = 6.5.0;
 			};
 		};
-		E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 2.8.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -695,11 +731,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7AEE308629F93EC500A61856 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
-		};
-		E313DAD22A0928CD00DEAF64 /* FSCalendar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E313DAD12A0928CD00DEAF64 /* XCRemoteSwiftPackageReference "FSCalendar" */;
-			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 
