@@ -97,7 +97,13 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: 아이템을 선택하면 배경색 및 텍스트컬러가 변경되고 해당 일자의 데이터 가져오기
+        guard let day = calendarViewModel?.daysForWeek[indexPath.item] else { return }
+        
+        calendarViewModel?.action(.selectDate(day.date))
+        collectionView.reloadData()
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource {

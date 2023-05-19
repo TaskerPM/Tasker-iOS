@@ -33,6 +33,7 @@ final class CalendarViewModel {
     private var selectedDate: Date {
         didSet {
             days = generateDaysInMonth(for: self.baseDate)
+            daysForWeek = generateDaysInWeek(for: self.baseDate)
         }
     }
     
