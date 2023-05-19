@@ -29,7 +29,7 @@ class CalendarViewPresentationController: UIPresentationController {
         tapGestureRecognizer()
     }
     
-    func tapGestureRecognizer() {
+    private func tapGestureRecognizer() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
         self.backgroundView.addGestureRecognizer(tapGesture)
     }
