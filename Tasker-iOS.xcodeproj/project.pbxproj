@@ -15,6 +15,9 @@
 		7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */; };
 		7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */; };
 		7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */; };
+		7A5AED462A1CC24500D84A53 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */; };
+		7A5AED482A1CC71300D84A53 /* CategoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */; };
+		7A5AED4A2A1CF27E00D84A53 /* ConfigureCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -65,6 +68,9 @@
 		7A1637EB2A0EC0FD0055F8EC /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		7A3BEFA22A13607D00F83A88 /* HomeCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarCell.swift; sourceTree = "<group>"; };
 		7A5AED422A156D9D00D84A53 /* CalendarViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewPresentationController.swift; sourceTree = "<group>"; };
+		7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
+		7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListCell.swift; sourceTree = "<group>"; };
+		7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureCategoryViewController.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +190,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		7A5AED442A1CC1F900D84A53 /* CategoryList */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */,
+				7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */,
+				7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */,
+			);
+			path = CategoryList;
+			sourceTree = "<group>";
+		};
 		7AC04EA429D31FE4004BB3E2 = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +251,7 @@
 				E3229CFE2A15160E006D9BB5 /* Model */,
 				7A1637EE2A0EC7500055F8EC /* View */,
 				7A1637ED2A0EC7460055F8EC /* ViewModel */,
+				7A5AED442A1CC1F900D84A53 /* CategoryList */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -445,9 +462,11 @@
 			files = (
 				E3220B3529F0072700F6C9FB /* LoginModel.swift in Sources */,
 				7AEAC1DC2A0535380019A4A4 /* TabbarController.swift in Sources */,
+				7A5AED462A1CC24500D84A53 /* CategoryListViewController.swift in Sources */,
 				E313DAC92A04146600DEAF64 /* RequestAuthButton.swift in Sources */,
 				7AEE308E29F9510300A61856 /* UIButton+.swift in Sources */,
 				E3220B3729F007AA00F6C9FB /* LoginService.swift in Sources */,
+				7A5AED4A2A1CF27E00D84A53 /* ConfigureCategoryViewController.swift in Sources */,
 				7AEAC1D42A051D510019A4A4 /* OnboardingViewController.swift in Sources */,
 				7A1637EA2A0D56430055F8EC /* CalendarCell.swift in Sources */,
 				E3220B3B29F0084900F6C9FB /* NetworkRequest.swift in Sources */,
@@ -466,6 +485,7 @@
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
 				7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */,
 				E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */,
+				7A5AED482A1CC71300D84A53 /* CategoryListCell.swift in Sources */,
 				7A5AED432A156D9D00D84A53 /* CalendarViewPresentationController.swift in Sources */,
 				7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */,
 				E313DAC72A03FDEA00DEAF64 /* AlertBuilder.swift in Sources */,
