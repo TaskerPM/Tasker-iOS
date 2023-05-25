@@ -18,6 +18,7 @@
 		7A5AED462A1CC24500D84A53 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */; };
 		7A5AED482A1CC71300D84A53 /* CategoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */; };
 		7A5AED4A2A1CF27E00D84A53 /* ConfigureCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */; };
+		7A5AED552A1F68C000D84A53 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED542A1F68C000D84A53 /* DetailViewController.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -71,6 +72,7 @@
 		7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListCell.swift; sourceTree = "<group>"; };
 		7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureCategoryViewController.swift; sourceTree = "<group>"; };
+		7A5AED542A1F68C000D84A53 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7A5AED562A1F68EA00D84A53 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED542A1F68C000D84A53 /* DetailViewController.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
 		7AC04EA429D31FE4004BB3E2 = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +278,7 @@
 				7A1637EE2A0EC7500055F8EC /* View */,
 				7A1637ED2A0EC7460055F8EC /* ViewModel */,
 				7A5AED442A1CC1F900D84A53 /* CategoryList */,
+				7A5AED562A1F68EA00D84A53 /* DetailView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -494,6 +505,7 @@
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
 				7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */,
 				7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */,
+				7A5AED552A1F68C000D84A53 /* DetailViewController.swift in Sources */,
 				7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */,
 				E313DAC32A015A0A00DEAF64 /* Timer.swift in Sources */,
 				7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */,
