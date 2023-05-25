@@ -193,11 +193,27 @@
 		7A5AED442A1CC1F900D84A53 /* CategoryList */ = {
 			isa = PBXGroup;
 			children = (
-				7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */,
-				7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */,
-				7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */,
+				7A5AED532A1F672000D84A53 /* View */,
+				7A5AED522A1F671500D84A53 /* Cell */,
 			);
 			path = CategoryList;
+			sourceTree = "<group>";
+		};
+		7A5AED522A1F671500D84A53 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED472A1CC71300D84A53 /* CategoryListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7A5AED532A1F672000D84A53 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED452A1CC24500D84A53 /* CategoryListViewController.swift */,
+				7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7AC04EA429D31FE4004BB3E2 = {
