@@ -77,6 +77,7 @@ class CategoryListViewController: UIViewController {
     }
     
     private func configureActionSheet() {
+        // TODO: Custom ActionSheet 고민하기
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.setBackgroundColor(color: .setColor(.white))
         actionSheet.setTint(color: .setColor(.gray900))
@@ -135,7 +136,7 @@ extension CategoryListViewController {
         item.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
         let horizontalGroup = CompositionalLayout.createGroup(alignment: .horizontal, width: .fractionalWidth(1), height: .fractionalWidth(0.1), subitems: [item])
         let verticalGroup = CompositionalLayout.createGroup(alignment: .vertical, width: .fractionalWidth(1), height: .fractionalWidth(1), subitems: [horizontalGroup])
-        verticalGroup.interItemSpacing = .fixed(8)
+        verticalGroup.interItemSpacing = .fixed(16)
         let section = NSCollectionLayoutSection(group: verticalGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
