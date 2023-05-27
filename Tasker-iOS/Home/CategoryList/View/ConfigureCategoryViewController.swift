@@ -64,6 +64,8 @@ class ConfigureCategoryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         categoryTextField.becomeFirstResponder()
     }
     
