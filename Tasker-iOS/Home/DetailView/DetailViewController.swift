@@ -69,6 +69,10 @@ class DetailViewController: UIViewController {
         config.attributedTitle?.font = .pretendardFont(size: 12, style: .regular)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
             print("Tapped timeSelectButton")
+            let timePickerVC = TimePickerViewController()
+            timePickerVC.modalPresentationStyle = .custom
+            timePickerVC.transitioningDelegate = self
+            self.present(timePickerVC, animated: true)
         }))
     }()
     
@@ -159,5 +163,11 @@ class DetailViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
+    }
+}
+
+extension DetailViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return ModalViewPresentationController(presentedViewController: presented, presenting: presentingViewController)
     }
 }

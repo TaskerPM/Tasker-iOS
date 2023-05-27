@@ -142,6 +142,6 @@ extension HomeViewController {
 
 extension HomeViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return CalendarViewPresentationController(presentedViewController: presented, presenting: presentingViewController)
+        return ModalViewPresentationController(presentedViewController: presented, presenting: presentingViewController)
     }
 }
