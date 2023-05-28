@@ -92,13 +92,13 @@ class TimePickerViewController: UIViewController {
         }
         
         seperateLineView.snp.makeConstraints {
-            $0.top.equalTo(topLabelButtonStackView.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(topLabelButtonStackView.snp.bottom).offset(11)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(1)
         }
         
         startTimePicker.snp.makeConstraints {
-            $0.top.equalTo(seperateLineView.snp.top).offset(10)
+            $0.top.equalTo(seperateLineView.snp.top).offset(7)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
