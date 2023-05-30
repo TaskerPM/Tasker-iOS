@@ -20,6 +20,7 @@
 		7A5AED4A2A1CF27E00D84A53 /* ConfigureCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */; };
 		7A5AED552A1F68C000D84A53 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED542A1F68C000D84A53 /* DetailViewController.swift */; };
 		7A5AED5A2A214A9900D84A53 /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */; };
+		7A5AED5C2A23799200D84A53 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED5B2A23799200D84A53 /* NoteCell.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -75,6 +76,7 @@
 		7A5AED492A1CF27E00D84A53 /* ConfigureCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureCategoryViewController.swift; sourceTree = "<group>"; };
 		7A5AED542A1F68C000D84A53 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
+		7A5AED5B2A23799200D84A53 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5AED542A1F68C000D84A53 /* DetailViewController.swift */,
+				7A5AED5B2A23799200D84A53 /* NoteCell.swift */,
 				7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */,
 			);
 			path = DetailView;
@@ -517,6 +520,7 @@
 				7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */,
 				7AEAC1E82A0681EF0019A4A4 /* MyPageViewController.swift in Sources */,
 				E3220B3F29F014B100F6C9FB /* URLSessionError.swift in Sources */,
+				7A5AED5C2A23799200D84A53 /* NoteCell.swift in Sources */,
 				7A5AED482A1CC71300D84A53 /* CategoryListCell.swift in Sources */,
 				7A5AED432A156D9D00D84A53 /* ModalViewPresentationController.swift in Sources */,
 				7A1637EC2A0EC0FD0055F8EC /* CalendarViewModel.swift in Sources */,

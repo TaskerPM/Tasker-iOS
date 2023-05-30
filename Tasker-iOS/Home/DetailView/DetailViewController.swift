@@ -11,7 +11,7 @@ import SnapKit
 class DetailViewController: UIViewController {
     private let saveButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = "저장"
+        config.title = "저장"
         config.attributedTitle?.font = .pretendardFont(size: 13, style: .semiBold)
         config.baseForegroundColor = .setColor(.gray900)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
@@ -38,7 +38,7 @@ class DetailViewController: UIViewController {
     
     private lazy var categorySelectButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = "선택 안 함"
+        config.title = "선택 안 함"
         config.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
         config.baseForegroundColor = .setColor(.white)
         config.background.backgroundColor = .setColor(.gray300)
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController {
     
     private lazy var timeSelectButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = "선택 안 함"
+        config.title = "선택 안 함"
         config.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
         config.baseForegroundColor = .setColor(.white)
         config.background.backgroundColor = .setColor(.gray300)
@@ -98,6 +98,13 @@ class DetailViewController: UIViewController {
         view.layer.borderColor = UIColor.setColor(.gray30).cgColor
         return view
     }()
+
+    private lazy var noteCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +113,7 @@ class DetailViewController: UIViewController {
         configureNavigationBar()
         configureUI()
         configureLayout()
+        configureCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,6 +136,12 @@ class DetailViewController: UIViewController {
 //        self.navigationController?.popViewController(animated: true)
         print("Tapped popToVC")
     }
+
+    private func configureCollectionView() {
+        noteCollectionView.delegate = self
+        noteCollectionView.dataSource = self
+        noteCollectionView.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "NoteCollectionViewCell")
+    }
     
     private func configureUI() {
         [categoryLabel, categorySelectButton]
@@ -136,7 +150,7 @@ class DetailViewController: UIViewController {
         [timeLabel, timeSelectButton]
             .forEach(timeStackView.addArrangedSubview)
         
-        [todoTitleTextField, categoryStackView, timeStackView, seperateLineView]
+        [todoTitleTextField, categoryStackView, timeStackView, seperateLineView, noteCollectionView]
             .forEach(view.addSubview)
     }
     
@@ -163,6 +177,54 @@ class DetailViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
+        
+        noteCollectionView.snp.makeConstraints {
+            $0.top.equalTo(seperateLineView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(safeArea.snp.bottom)
+        }
+    }
+}
+
+extension DetailViewController: UICollectionViewDelegate {
+
+}
+
+extension DetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoteCollectionViewCell", for: indexPath) as? NoteCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+
+
+}
+
+extension DetailViewController {
+    func createLayout() -> UICollectionViewLayout {
+//        return UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
+//            let item = CompositionalLayout.createItem(width: .fractionalWidth(1), height: .fractionalHeight(1), spacing: 0)
+//            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
+//            let group = CompositionalLayout.createGroup(alignment: .vertical, width: .fractionalWidth(1), height: .fractionalHeight(1), subitem: item, count: 1)
+//            group.contentInsets = .init(top: 9, leading: 0, bottom: 9, trailing: 0)
+//            let section = NSCollectionLayoutSection(group: group)
+//            return section
+//        }
+        
+        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            var config = UICollectionLayoutListConfiguration(appearance: .plain)
+            config.showsSeparators = false
+
+            let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+            section.interGroupSpacing = 18
+            return section
+        }
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
 }
 

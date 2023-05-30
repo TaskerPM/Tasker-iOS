@@ -19,7 +19,7 @@ class TimePickerViewController: UIViewController {
     
     private lazy var nextButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = "다음"
+        config.title = "다음"
         config.attributedTitle?.font = .pretendardFont(size: 13, style: .medium)
         config.baseForegroundColor = .setColor(.basicBlack)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
