@@ -92,19 +92,28 @@ class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let seperateLineView: UIView = {
+    private let topSeperateLineView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.setColor(.gray30).cgColor
         return view
     }()
-
+   
     private lazy var noteCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
+    private let bottomSeperateLineView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.setColor(.gray30).cgColor
+        return view
+    }()
+    
+    private let toolBoxView = ToolBoxView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,7 +159,10 @@ class DetailViewController: UIViewController {
         [timeLabel, timeSelectButton]
             .forEach(timeStackView.addArrangedSubview)
         
-        [todoTitleTextField, categoryStackView, timeStackView, seperateLineView, noteCollectionView]
+        [
+            todoTitleTextField, categoryStackView, timeStackView, topSeperateLineView,
+            noteCollectionView, bottomSeperateLineView, toolBoxView
+        ]
             .forEach(view.addSubview)
     }
     
@@ -172,16 +184,27 @@ class DetailViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(21)
         }
         
-        seperateLineView.snp.makeConstraints {
+        topSeperateLineView.snp.makeConstraints {
             $0.top.equalTo(timeStackView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         noteCollectionView.snp.makeConstraints {
-            $0.top.equalTo(seperateLineView.snp.bottom).offset(16)
+            $0.top.equalTo(topSeperateLineView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(safeArea.snp.bottom)
+        }
+        
+        bottomSeperateLineView.snp.makeConstraints {
+            $0.top.equalTo(noteCollectionView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        
+        toolBoxView.snp.makeConstraints {
+            $0.top.equalTo(bottomSeperateLineView.snp.bottom).offset(14)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-14)
         }
     }
 }
@@ -207,15 +230,6 @@ extension DetailViewController: UICollectionViewDataSource {
 
 extension DetailViewController {
     func createLayout() -> UICollectionViewLayout {
-//        return UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
-//            let item = CompositionalLayout.createItem(width: .fractionalWidth(1), height: .fractionalHeight(1), spacing: 0)
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
-//            let group = CompositionalLayout.createGroup(alignment: .vertical, width: .fractionalWidth(1), height: .fractionalHeight(1), subitem: item, count: 1)
-//            group.contentInsets = .init(top: 9, leading: 0, bottom: 9, trailing: 0)
-//            let section = NSCollectionLayoutSection(group: group)
-//            return section
-//        }
-        
         let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             var config = UICollectionLayoutListConfiguration(appearance: .plain)
             config.showsSeparators = false

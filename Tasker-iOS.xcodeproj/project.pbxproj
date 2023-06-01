@@ -21,6 +21,7 @@
 		7A5AED552A1F68C000D84A53 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED542A1F68C000D84A53 /* DetailViewController.swift */; };
 		7A5AED5A2A214A9900D84A53 /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */; };
 		7A5AED5C2A23799200D84A53 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED5B2A23799200D84A53 /* NoteCell.swift */; };
+		7A5AED5E2A293F2F00D84A53 /* ToolBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AED5D2A293F2F00D84A53 /* ToolBoxView.swift */; };
 		7AC04EB129D31FE4004BB3E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */; };
 		7AC04EB329D31FE4004BB3E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */; };
 		7AC04EB529D31FE4004BB3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC04EB429D31FE4004BB3E2 /* LoginViewController.swift */; };
@@ -77,6 +78,7 @@
 		7A5AED542A1F68C000D84A53 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		7A5AED5B2A23799200D84A53 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		7A5AED5D2A293F2F00D84A53 /* ToolBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBoxView.swift; sourceTree = "<group>"; };
 		7AC04EAD29D31FE4004BB3E2 /* Tasker-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tasker-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC04EB029D31FE4004BB3E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC04EB229D31FE4004BB3E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5AED542A1F68C000D84A53 /* DetailViewController.swift */,
+				7A5AED5D2A293F2F00D84A53 /* ToolBoxView.swift */,
 				7A5AED5B2A23799200D84A53 /* NoteCell.swift */,
 				7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */,
 			);
@@ -507,6 +510,7 @@
 				E313DABD29F55FBC00DEAF64 /* JSONParser.swift in Sources */,
 				7AEAC1E42A0681AE0019A4A4 /* GatherViewController.swift in Sources */,
 				7A0BDBF329F7F11B001580DE /* UIFont+.swift in Sources */,
+				7A5AED5E2A293F2F00D84A53 /* ToolBoxView.swift in Sources */,
 				7A1637E82A0CEB7C0055F8EC /* CalendarViewController.swift in Sources */,
 				7AEAC1D82A0523340019A4A4 /* OnboardingCell.swift in Sources */,
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
