@@ -202,9 +202,10 @@ class DetailViewController: UIViewController {
         }
         
         toolBoxView.snp.makeConstraints {
-            $0.top.equalTo(bottomSeperateLineView.snp.bottom).offset(14)
+            $0.top.equalTo(bottomSeperateLineView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-14)
+            $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top)
+            $0.height.equalTo(45)
         }
     }
 }
