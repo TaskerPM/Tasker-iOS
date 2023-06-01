@@ -227,12 +227,36 @@
 		7A5AED562A1F68EA00D84A53 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				7A5AED542A1F68C000D84A53 /* DetailViewController.swift */,
-				7A5AED5D2A293F2F00D84A53 /* ToolBoxView.swift */,
-				7A5AED5B2A23799200D84A53 /* NoteCell.swift */,
-				7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */,
+				7A5AED612A2946D800D84A53 /* View */,
+				7A5AED622A2946F200D84A53 /* Cell */,
+				7A5AED632A2946FD00D84A53 /* TimePicker */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		7A5AED612A2946D800D84A53 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED542A1F68C000D84A53 /* DetailViewController.swift */,
+				7A5AED5D2A293F2F00D84A53 /* ToolBoxView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7A5AED622A2946F200D84A53 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED5B2A23799200D84A53 /* NoteCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7A5AED632A2946FD00D84A53 /* TimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				7A5AED592A214A9900D84A53 /* TimePickerViewController.swift */,
+			);
+			path = TimePicker;
 			sourceTree = "<group>";
 		};
 		7AC04EA429D31FE4004BB3E2 = {
