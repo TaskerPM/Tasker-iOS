@@ -113,8 +113,18 @@ class DetailViewController: UIViewController {
         return view
     }()
     
-    private let toolBoxView = ToolBoxView()
-    
+    private let addNoteButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.title = "노트 추가하기"
+        config.image = UIImage(named: "Home_add_note")
+        config.attributedTitle?.font = .pretendardFont(size: 14, style: .regular)
+        config.baseForegroundColor = .setColor(.basicRed)
+        return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
+            // TODO: NoteCell 추가하기
+            print("Tapped addNoteButton")
+        }))
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .setColor(.white)
@@ -161,7 +171,7 @@ class DetailViewController: UIViewController {
         
         [
             todoTitleTextField, categoryStackView, timeStackView, topSeperateLineView,
-            noteCollectionView, bottomSeperateLineView, toolBoxView
+            noteCollectionView, bottomSeperateLineView, addNoteButton
         ]
             .forEach(view.addSubview)
     }
@@ -201,9 +211,9 @@ class DetailViewController: UIViewController {
             $0.height.equalTo(1)
         }
         
-        toolBoxView.snp.makeConstraints {
+        addNoteButton.snp.makeConstraints {
             $0.top.equalTo(bottomSeperateLineView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
             $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top)
             $0.height.equalTo(45)
         }
@@ -225,8 +235,6 @@ extension DetailViewController: UICollectionViewDataSource {
         }
         return cell
     }
-
-
 }
 
 extension DetailViewController {
