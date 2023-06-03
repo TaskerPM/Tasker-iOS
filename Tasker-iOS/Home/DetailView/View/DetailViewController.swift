@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class DetailViewController: UIViewController {
+    var dummyDataSource = ["1"]
+    
     private let saveButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.title = "저장"
@@ -113,18 +115,22 @@ class DetailViewController: UIViewController {
         return view
     }()
     
-    private let addNoteButton: UIButton = {
+    private lazy var addNoteButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.title = "노트 추가하기"
         config.image = UIImage(named: "Home_add_note")
         config.attributedTitle?.font = .pretendardFont(size: 14, style: .regular)
         config.baseForegroundColor = .setColor(.basicRed)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
-            // TODO: NoteCell 추가하기
-            print("Tapped addNoteButton")
+            let newNote = "\(self.dummyDataSource.count)"
+            self.dummyDataSource.append(newNote)
+            let indexPath = IndexPath(item: self.dummyDataSource.count - 1, section: 0)
+            self.noteCollectionView.insertItems(at: [indexPath])
         }))
     }()
-
+    
+    var previousContentOffset: CGPoint = .zero
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .setColor(.white)
@@ -221,28 +227,61 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }
 
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return dummyDataSource.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoteCollectionViewCell", for: indexPath) as? NoteCollectionViewCell else {
             return UICollectionViewCell()
         }
+        cell.delegate = self
         return cell
     }
 }
 
+extension DetailViewController: TextViewDidChangeDelegate {
+    func textViewDidChangeHeight(_ height: CGFloat, forIndexPath indexPath: IndexPath) {
+        let contentSize = noteCollectionView.contentSize
+        let maxContentOffsetY = contentSize.height + noteCollectionView.contentOffset.y + height
+        let newContentOffset = CGPoint(x: previousContentOffset.x, y: min(previousContentOffset.y, maxContentOffsetY))
+        
+        noteCollectionView.contentOffset = newContentOffset
+        noteCollectionView.performBatchUpdates {
+            previousContentOffset = newContentOffset
+        }
+    }
+}
+
 extension DetailViewController {
+    private func configureSwipeAction(_ indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "삭제") { [weak self] action, view, conpletionHandler in
+            guard let self else { return }
+            
+            let point = view.convert(view.bounds.origin, to: self.noteCollectionView)
+            if let indexPath = self.noteCollectionView.indexPathForItem(at: point) {
+                self.dummyDataSource.remove(at: indexPath.item)
+                self.noteCollectionView.deleteItems(at: [indexPath])
+            }
+            conpletionHandler(true)
+        }
+        deleteAction.backgroundColor = .setColor(.basicRed)
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
     func createLayout() -> UICollectionViewLayout {
         let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             var config = UICollectionLayoutListConfiguration(appearance: .plain)
             config.showsSeparators = false
-
+            config.trailingSwipeActionsConfigurationProvider = self.configureSwipeAction(_:)
+            
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 18
             return section

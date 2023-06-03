@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol TextViewDidChangeDelegate: AnyObject {
+    func textViewDidChangeHeight(_ height: CGFloat, forIndexPath indexPath: IndexPath)
+}
+
 final class NoteCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -17,7 +21,7 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let noteTextView: UITextView = {
+    let noteTextView: UITextView = {
         let textView = UITextView()
         textView.text = "노트를 작성하세요."
         textView.font = .pretendardFont(size: 13, style: .regular)
@@ -27,6 +31,8 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         return textView
     }()
     
+    weak var delegate: TextViewDidChangeDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .setColor(.note)
@@ -57,7 +63,7 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         noteTextView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(7)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.lessThanOrEqualToSuperview().inset(14)
+            $0.bottom.equalToSuperview().inset(14)
         }
     }
 }
@@ -78,32 +84,10 @@ extension NoteCollectionViewCell: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        guard let collectionView else { return }
-        
-        let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: CGFloat.greatestFiniteMagnitude))
-        
-        if textView.bounds.height != contentSize.height {
-            collectionView.contentOffset.y += contentSize.height - textView.bounds.height - titleLabel.bounds.height
-            
-//            UIView.setAnimationsEnabled(false)
-            collectionView.collectionViewLayout.invalidateLayout()
+        guard let textHeight = textView.font?.pointSize else { return }
 
-            print("collectionView.contentOffset.y: \(collectionView.contentOffset.y)")
-            print("contentSize.height: \(contentSize.height)")
-            print("textView.frame.height: \(textView.frame.height)")
-            print("titleLabel.frame.height: \(titleLabel.frame.height)")
-            print("---------------------------------------------")
-        }
-    }
-}
-
-extension UICollectionViewCell {
-    var collectionView: UICollectionView? {
-        var view = superview
-        while view != nil && !(view is UICollectionView) {
-            view = view?.superview
-        }
-
-        return view as? UICollectionView
+        let sizeToFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        let newHeight = max(sizeToFit.height, textHeight)
+        delegate?.textViewDidChangeHeight(newHeight, forIndexPath: IndexPath())
     }
 }
