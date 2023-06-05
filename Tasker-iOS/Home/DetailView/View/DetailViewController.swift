@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class DetailViewController: UIViewController {
-    var dummyDataSource = ["1"]
+    var dummyDataSource = ["0"]
     
     private let saveButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -126,6 +126,13 @@ class DetailViewController: UIViewController {
             self.dummyDataSource.append(newNote)
             let indexPath = IndexPath(item: self.dummyDataSource.count - 1, section: 0)
             self.noteCollectionView.insertItems(at: [indexPath])
+            
+            let contentSize = self.noteCollectionView.contentSize
+            let bounds = self.noteCollectionView.bounds
+            
+            if contentSize.height > bounds.height {
+                self.noteCollectionView.setContentOffset(CGPoint(x: 0, y: contentSize.height - bounds.height + 42), animated: true)
+            }
         }))
     }()
     
@@ -241,6 +248,7 @@ extension DetailViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoteCollectionViewCell", for: indexPath) as? NoteCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         cell.delegate = self
         return cell
     }
