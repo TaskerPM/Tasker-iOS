@@ -71,6 +71,7 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .setColor(.white)
+        view.tag = 0
         
         configureUI()
         configureLayout()
@@ -98,7 +99,7 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        view.layer.cornerRadius = 22
+        view.layer.cornerRadius = 20
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 

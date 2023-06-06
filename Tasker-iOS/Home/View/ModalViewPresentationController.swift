@@ -1,5 +1,5 @@
 //
-//  CalendarViewPresentationController.swift
+//  ModalViewPresentationController.swift
 //  Tasker-iOS
 //
 //  Created by mingmac on 2023/05/18.
@@ -7,16 +7,27 @@
 
 import UIKit
 
-class CalendarViewPresentationController: UIPresentationController {
+class ModalViewPresentationController: UIPresentationController {
     private let backgroundView: UIView
 
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView else { return CGRect() }
         
-        if containerView.frame.height >= 812 {
-            return CGRect(x: 0, y: containerView.frame.height * 0.46, width: containerView.frame.width, height: containerView.frame.height * 0.54)
-        } else {
-            return CGRect(x: 0, y: containerView.frame.height * 0.4, width: containerView.frame.width, height: containerView.frame.height * 0.6)
+        switch presentedViewController.view.tag {
+        case 0:
+            if containerView.frame.height >= 812 {
+                return CGRect(x: 0, y: containerView.frame.height * 0.46, width: containerView.frame.width, height: containerView.frame.height * 0.54)
+            } else {
+                return CGRect(x: 0, y: containerView.frame.height * 0.4, width: containerView.frame.width, height: containerView.frame.height * 0.6)
+            }
+        case 1:
+            if containerView.frame.height >= 812 {
+                return CGRect(x: 0, y: containerView.frame.height * 0.66, width: containerView.frame.width, height: containerView.frame.height * 0.34)
+            } else {
+                return CGRect(x: 0, y: containerView.frame.height * 0.6, width: containerView.frame.width, height: containerView.frame.height * 0.4)
+            }
+        default:
+            return CGRect(x: 0, y: containerView.frame.height * 0.5, width: containerView.frame.width, height: containerView.frame.height * 0.5)
         }
     }
     
