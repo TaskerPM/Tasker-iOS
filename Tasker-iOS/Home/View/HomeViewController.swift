@@ -33,15 +33,77 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
-    private let calendarCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(HomeCalendarCell.self, forCellWithReuseIdentifier: "HomeCalendarCell")
-        collectionView.isScrollEnabled = false
-        return collectionView
+    private lazy var calendarCollectionView: UICollectionView = UICollectionView(frame: .zero,
+                                                                                 collectionViewLayout: createWeekCalendarCollectionViewLayout())
+    
+    private lazy var listTypeButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        let button = UIButton(type: .system)
+        button.configuration = config
+        button.configurationUpdateHandler = { [weak self] button in
+            guard let self else { return }
+            
+            var config = button.configuration
+            let currentImage = self.isSelectedListTypeViewButton ? UIImage(named: "Home_list(select)") : UIImage(named: "Home_list(unselect)")
+            config?.image = currentImage
+            button.configuration = config
+        }
+        
+        button.addAction(UIAction(handler: { _ in
+            if self.children != [self.listTypeVC] {
+                self.remove(self.categoryTypeVC)
+                self.add(self.listTypeVC)
+                self.configureListTypeViewLayout()
+                guard self.isSelectedListTypeViewButton == false else { return }
+                self.isSelectedListTypeViewButton.toggle()
+            }
+        }), for: .touchUpInside)
+        return button
     }()
     
+    private lazy var categoryTypeButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        let button = UIButton(type: .system)
+        button.configuration = config
+        button.configurationUpdateHandler = { [weak self] button in
+            guard let self else { return }
+            
+            var config = button.configuration
+            let currentImage = self.isSelectedListTypeViewButton ? UIImage(named: "Home_category(unselect)") : UIImage(named: "Home_category(select)")
+            config?.image = currentImage
+            button.configuration = config
+        }
+        
+        button.addAction(UIAction(handler: { _ in
+            if self.children != [self.categoryTypeVC] {
+                self.remove(self.listTypeVC)
+                self.add(self.categoryTypeVC)
+                self.configureCategoryTypeViewLayout()
+                self.isSelectedListTypeViewButton.toggle()
+            }
+        }), for: .touchUpInside)
+        return button
+    }()
+    
+    private let typeSelectButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private var isSelectedListTypeViewButton = true {
+        didSet {
+            listTypeButton.setNeedsUpdateConfiguration()
+            categoryTypeButton.setNeedsUpdateConfiguration()
+        }
+    }
+
     private var calendarViewModel: CalendarViewModel?
+    
+    private let listTypeVC = ListTypeViewController()
+    private let categoryTypeVC = CategoryTypeViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +123,14 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureUI() {
-        [yearMonthLabel, calendarButton].forEach(calendarStackView.addArrangedSubview)
-        [calendarStackView, calendarCollectionView].forEach(view.addSubview)
+        [yearMonthLabel, calendarButton]
+            .forEach(calendarStackView.addArrangedSubview)
+        
+        [listTypeButton, categoryTypeButton]
+            .forEach(typeSelectButtonStackView.addArrangedSubview)
+        
+        [calendarStackView, calendarCollectionView, typeSelectButtonStackView, listTypeVC.view]
+            .forEach(view.addSubview)
     }
     
     private func configureLayout() {
@@ -76,12 +144,40 @@ final class HomeViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(61)
         }
+        
+        typeSelectButtonStackView.snp.makeConstraints {
+            $0.top.equalTo(calendarCollectionView.snp.bottom).offset(12)
+            $0.trailing.equalToSuperview().inset(14)
+        }
+        
+        configureListTypeViewLayout()
+    }
+    
+    private func configureListTypeViewLayout() {
+        let safeArea = view.safeAreaLayoutGuide
+        
+        listTypeVC.view.snp.makeConstraints {
+            $0.top.equalTo(typeSelectButtonStackView.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(safeArea.snp.bottom)
+        }
+    }
+    
+    private func configureCategoryTypeViewLayout() {
+        let safeArea = view.safeAreaLayoutGuide
+        
+        categoryTypeVC.view.snp.makeConstraints {
+            $0.top.equalTo(typeSelectButtonStackView.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(safeArea.snp.bottom)
+        }
     }
     
     private func configureCollectionView() {
         calendarCollectionView.dataSource = self
         calendarCollectionView.delegate = self
-        calendarCollectionView.collectionViewLayout = createLayout()
+        calendarCollectionView.register(HomeCalendarCell.self, forCellWithReuseIdentifier: "HomeCalendarCell")
+        calendarCollectionView.isScrollEnabled = false
     }
     
     private func configureButtonAction() {
@@ -111,7 +207,6 @@ extension HomeViewController: UICollectionViewDataSource {
         return 7
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCalendarCell", for: indexPath) as? HomeCalendarCell,
@@ -129,7 +224,7 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 extension HomeViewController {
-    func createLayout() -> UICollectionViewCompositionalLayout {
+    private func createWeekCalendarCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             let item = CompositionalLayout.createItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1), spacing: 0)
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
