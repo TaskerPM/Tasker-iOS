@@ -170,6 +170,7 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
             
             calendarViewModel?.action(.selectDate(day.date))
             collectionView.reloadData()
+            dismiss(animated: true)
         default:
             return
         }

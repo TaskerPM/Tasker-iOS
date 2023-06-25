@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class DetailViewController: UIViewController {
-    var dummyDataSource = ["0"]
+    private var viewModel = DetailViewModel()
     
     private let saveButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -17,8 +17,7 @@ class DetailViewController: UIViewController {
         config.attributedTitle?.font = .pretendardFont(size: 13, style: .semiBold)
         config.baseForegroundColor = .setColor(.gray900)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
-            // TODO: 저장 버튼을 누르면 컨텐츠를 서버에 저장하는 로직 호출 (뒤로 가기 x)
-            print("Tapped saveNote")
+            // TODO: 저장 버튼을 누르면 컨텐츠를 서버에 저장하는 로직 호출 (뒤로 가기 x, 저장만 o)
         }))
     }()
     
@@ -47,7 +46,6 @@ class DetailViewController: UIViewController {
         config.background.cornerRadius = 5
         config.attributedTitle?.font = .pretendardFont(size: 12, style: .regular)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
-            print("Tapped categorySelectButton")
             let categoryListVC = CategoryListViewController()
             self.navigationController?.pushViewController(categoryListVC, animated: true)
         }))
@@ -70,7 +68,6 @@ class DetailViewController: UIViewController {
         config.background.cornerRadius = 5
         config.attributedTitle?.font = .pretendardFont(size: 12, style: .regular)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
-            print("Tapped timeSelectButton")
             let timePickerVC = TimePickerViewController()
             timePickerVC.modalPresentationStyle = .custom
             timePickerVC.transitioningDelegate = self
@@ -101,12 +98,7 @@ class DetailViewController: UIViewController {
         return view
     }()
    
-    private lazy var noteCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
-    }()
+    private lazy var noteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createNoteCollectionViewLayout())
     
     private let bottomSeperateLineView: UIView = {
         let view = UIView()
@@ -122,9 +114,9 @@ class DetailViewController: UIViewController {
         config.attributedTitle?.font = .pretendardFont(size: 14, style: .regular)
         config.baseForegroundColor = .setColor(.basicRed)
         return UIButton(configuration: config, primaryAction: UIAction(handler: { _ in
-            let newNote = "\(self.dummyDataSource.count)"
-            self.dummyDataSource.append(newNote)
-            let indexPath = IndexPath(item: self.dummyDataSource.count - 1, section: 0)
+            let newNote = DetailModel(noteText: "")
+            self.viewModel.addItem(newNote)
+            let indexPath = IndexPath(item: self.viewModel.itemCount - 1, section: 0)
             self.noteCollectionView.insertItems(at: [indexPath])
             
             let contentSize = self.noteCollectionView.contentSize
@@ -152,6 +144,7 @@ class DetailViewController: UIViewController {
         super.viewDidAppear(animated)
         
         todoTitleTextField.becomeFirstResponder()
+        todoTitleTextField.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -165,14 +158,15 @@ class DetailViewController: UIViewController {
     }
     
     @objc func popToVC() {
-//        self.navigationController?.popViewController(animated: true)
-        print("Tapped popToVC")
+        self.navigationController?.popViewController(animated: true)
     }
 
     private func configureCollectionView() {
         noteCollectionView.delegate = self
         noteCollectionView.dataSource = self
         noteCollectionView.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "NoteCollectionViewCell")
+        noteCollectionView.showsVerticalScrollIndicator = false
+        noteCollectionView.showsHorizontalScrollIndicator = false
     }
     
     private func configureUI() {
@@ -241,16 +235,23 @@ extension DetailViewController: UICollectionViewDelegate {
 
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyDataSource.count
+        return viewModel.itemCount
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoteCollectionViewCell", for: indexPath) as? NoteCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         cell.delegate = self
+        cell.configure(viewModel, indexPath: indexPath)
         return cell
+    }
+}
+
+extension DetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
@@ -274,7 +275,7 @@ extension DetailViewController {
             
             let point = view.convert(view.bounds.origin, to: self.noteCollectionView)
             if let indexPath = self.noteCollectionView.indexPathForItem(at: point) {
-                self.dummyDataSource.remove(at: indexPath.item)
+                self.viewModel.deleteItem(at: indexPath.item)
                 self.noteCollectionView.deleteItems(at: [indexPath])
             }
             conpletionHandler(true)
@@ -284,7 +285,7 @@ extension DetailViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    func createLayout() -> UICollectionViewLayout {
+    func createNoteCollectionViewLayout() -> UICollectionViewLayout {
         let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             var config = UICollectionLayoutListConfiguration(appearance: .plain)
             config.showsSeparators = false

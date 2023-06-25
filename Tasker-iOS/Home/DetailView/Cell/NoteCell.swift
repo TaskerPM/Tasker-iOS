@@ -21,9 +21,8 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let noteTextView: UITextView = {
+    private let noteTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "노트를 작성하세요."
         textView.font = .pretendardFont(size: 13, style: .regular)
         textView.textColor = .setColor(.gray250)
         textView.backgroundColor = .setColor(.note)
@@ -49,6 +48,16 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(_ viewModel: DetailViewModel, indexPath: IndexPath) {
+        let item = viewModel.item(at: indexPath.item)
+        if noteTextView.text.isEmpty {
+            noteTextView.text = "노트를 작성하세요."
+        } else {
+            noteTextView.text = item.noteText
+        }
+        
+    }
+    
     private func configureUI() {
         [titleLabel, noteTextView]
             .forEach(contentView.addSubview)
@@ -69,6 +78,13 @@ final class NoteCollectionViewCell: UICollectionViewCell {
 }
 
 extension NoteCollectionViewCell: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        return true
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .setColor(.gray250) {
             textView.text = nil

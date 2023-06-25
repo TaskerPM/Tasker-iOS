@@ -19,7 +19,6 @@ final class HomeViewController: UIViewController {
     private let calendarButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 24, height: 24)))
         let image = UIImage(named: "Home_calender")
-        image?.withRenderingMode(.alwaysOriginal)
         button.setImage(image, for: .normal)
         return button
     }()
@@ -33,8 +32,8 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var calendarCollectionView: UICollectionView = UICollectionView(frame: .zero,
-                                                                                 collectionViewLayout: createWeekCalendarCollectionViewLayout())
+    private lazy var calendarCollectionView = UICollectionView(frame: .zero,
+                                                               collectionViewLayout: createWeekCalendarCollectionViewLayout())
     
     private lazy var listTypeButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -107,7 +106,8 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        configureNavigationBar()
         configureUI()
         configureLayout()
         configureButtonAction()
@@ -122,25 +122,30 @@ final class HomeViewController: UIViewController {
         yearMonthLabel.text = calendarViewModel?.localizedCalendarTitle
     }
     
+    private func configureNavigationBar() {
+        let calendarStackView = UIBarButtonItem(customView: calendarStackView)
+        
+        self.navigationItem.leftBarButtonItem = calendarStackView
+    }
+    
     private func configureUI() {
+        self.add(listTypeVC)
+        
         [yearMonthLabel, calendarButton]
             .forEach(calendarStackView.addArrangedSubview)
         
         [listTypeButton, categoryTypeButton]
             .forEach(typeSelectButtonStackView.addArrangedSubview)
         
-        [calendarStackView, calendarCollectionView, typeSelectButtonStackView, listTypeVC.view]
+        [calendarCollectionView, typeSelectButtonStackView, listTypeVC.view]
             .forEach(view.addSubview)
     }
     
     private func configureLayout() {
-        calendarStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(50)
-            $0.leading.equalToSuperview().offset(12)
-        }
+        let safeArea = view.safeAreaLayoutGuide
         
         calendarCollectionView.snp.makeConstraints {
-            $0.top.equalTo(calendarStackView.snp.bottom).offset(20)
+            $0.top.equalTo(safeArea.snp.top)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(61)
         }
