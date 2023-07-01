@@ -25,7 +25,7 @@ final class ListTypeTaskCell: UICollectionViewCell {
         return button
     }()
     
-    private let listTextField: UITextField = {
+    private let taskTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "태스크를 입력해보세요."
         textField.font = .pretendardFont(size: 13, style: .regular)
@@ -36,8 +36,8 @@ final class ListTypeTaskCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        listTextField.delegate = self
-        listTextField.becomeFirstResponder()
+        taskTextField.delegate = self
+        taskTextField.becomeFirstResponder()
         
         configureUI()
         configureLayout()
@@ -61,10 +61,10 @@ final class ListTypeTaskCell: UICollectionViewCell {
         let isCompleted = viewModel.item(at: indexPath.item).isCompleted
         if isCompleted {
             checkButton.setImage(UIImage(named: "Home_complete"), for: .normal)
-            self.listTextField.attributedText = self.listTextField.text?.strikeThrough()
+            self.taskTextField.attributedText = self.taskTextField.text?.strikeThrough()
         } else {
             checkButton.setImage(UIImage(named: "Home_incomplete"), for: .normal)
-            self.listTextField.attributedText = self.listTextField.text?.noneStrikeThrough()
+            self.taskTextField.attributedText = self.taskTextField.text?.noneStrikeThrough()
         }
     }
     
@@ -83,16 +83,15 @@ final class ListTypeTaskCell: UICollectionViewCell {
         
         let item = viewModel.item(at: indexPath.item)
         
-        listTextField.text = item.title
-        listTextField.attributedText = item.isCompleted ? listTextField.text?.strikeThrough() : listTextField.text?.noneStrikeThrough()
+        taskTextField.text = item.title
+        taskTextField.attributedText = item.isCompleted ? taskTextField.text?.strikeThrough() : taskTextField.text?.noneStrikeThrough()
         
         let image = item.isCompleted ? UIImage(named: "Home_complete") : UIImage(named: "Home_incomplete")
         checkButton.setImage(image, for: .normal)
-        
     }
     
     private func configureUI() {
-        [checkButton, listTextField]
+        [checkButton, taskTextField]
             .forEach(contentView.addSubview)
     }
     
@@ -102,7 +101,7 @@ final class ListTypeTaskCell: UICollectionViewCell {
             $0.leading.equalToSuperview().offset(10)
         }
 
-        listTextField.snp.makeConstraints {
+        taskTextField.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(13)
             $0.leading.equalTo(checkButton.snp.trailing).offset(9)
         }

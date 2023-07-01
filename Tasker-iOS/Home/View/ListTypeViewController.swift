@@ -22,6 +22,12 @@ class ListTypeViewController: UIViewController {
         configureCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        listTypeCollectionView.reloadData()
+    }
+    
     private func configureCollectionView() {
         listTypeCollectionView.delegate = self
         listTypeCollectionView.dataSource = self
