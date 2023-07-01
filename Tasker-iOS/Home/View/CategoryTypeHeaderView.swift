@@ -13,12 +13,14 @@ protocol AddNewCellDelegate: AnyObject {
 }
 
 class CategoryTypeHeaderView: UICollectionReusableView {
+    private var viewModel: TaskViewModel?
+    private var indexPath: IndexPath?
+    
     private let categoryLabel: BasePaddingLabel = {
         let label = BasePaddingLabel(padding: UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6))
         label.text = "스터디"
-        label.font = .pretendardFont(size: 12, style: .regular)
-        label.textColor = .setColor(.yellowText)
-        label.backgroundColor = .setColor(.yellowBg)
+        label.font = .pretendardFont(size: 13, style: .medium)
+        label.textColor = .setColor(.gray300)
         label.clipsToBounds = true
         label.layer.cornerRadius = 5
         return label
@@ -34,8 +36,7 @@ class CategoryTypeHeaderView: UICollectionReusableView {
         let button = UIButton(type: .custom)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.setColor(.gray30).cgColor
-        button.layer.cornerRadius = 14
-        
+        button.layer.cornerRadius = 12.5
         button.configuration = config
         button.addAction(UIAction(handler: { _ in
             self.delegate?.tappedAddCellButton()
@@ -54,6 +55,23 @@ class CategoryTypeHeaderView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(_ viewModel: TaskViewModel, indexPath: IndexPath) {
+        self.viewModel = viewModel
+        self.indexPath = indexPath
+        
+        let item = viewModel.item(at: indexPath.item)
+        let category = item.category
+        
+        if category.categoryName == "" {
+            categoryLabel.text = "카테고리 없음"
+        } else {
+            categoryLabel.text = category.categoryName
+//            categoryLabel.textColor = .setColor(.yellowText)
+//            categoryLabel.backgroundColor = .setColor(.yellowBg)
+            categoryLabel.font = .pretendardFont(size: 12, style: .regular)
+        }
     }
     
     private func configureUI() {

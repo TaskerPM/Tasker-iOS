@@ -28,6 +28,9 @@
 		7A9035282A311F340090CA21 /* ListTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9035272A311F340090CA21 /* ListTypeViewController.swift */; };
 		7A90352A2A311F670090CA21 /* CategoryTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9035292A311F670090CA21 /* CategoryTypeViewController.swift */; };
 		7A90352C2A311FCE0090CA21 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A90352B2A311FCE0090CA21 /* UIViewController+.swift */; };
+		7AB1487B2A4CC593009BD265 /* CategoryTypeTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB1487A2A4CC593009BD265 /* CategoryTypeTaskCell.swift */; };
+		7AB1487D2A4CC5C6009BD265 /* CategoryTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB1487C2A4CC5C6009BD265 /* CategoryTypeHeaderView.swift */; };
+		7AB1487F2A4CEF1A009BD265 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB1487E2A4CEF1A009BD265 /* BasePaddingLabel.swift */; };
 		7ABAE2532A48AF2700A1D0A2 /* TaskAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAE2522A48AF2600A1D0A2 /* TaskAddButtonCell.swift */; };
 		7ABAE2552A48BE2300A1D0A2 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAE2542A48BE2300A1D0A2 /* DetailViewModel.swift */; };
 		7ABAE2572A48C6D700A1D0A2 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAE2562A48C6D700A1D0A2 /* DetailModel.swift */; };
@@ -94,6 +97,9 @@
 		7A9035272A311F340090CA21 /* ListTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTypeViewController.swift; sourceTree = "<group>"; };
 		7A9035292A311F670090CA21 /* CategoryTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTypeViewController.swift; sourceTree = "<group>"; };
 		7A90352B2A311FCE0090CA21 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		7AB1487A2A4CC593009BD265 /* CategoryTypeTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTypeTaskCell.swift; sourceTree = "<group>"; };
+		7AB1487C2A4CC5C6009BD265 /* CategoryTypeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTypeHeaderView.swift; sourceTree = "<group>"; };
+		7AB1487E2A4CEF1A009BD265 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		7ABAE2522A48AF2600A1D0A2 /* TaskAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddButtonCell.swift; sourceTree = "<group>"; };
 		7ABAE2542A48BE2300A1D0A2 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		7ABAE2562A48C6D700A1D0A2 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
@@ -208,6 +214,8 @@
 				7A46910A2A33AA9000192C77 /* ListTypeTaskCell.swift */,
 				7ABAE2522A48AF2600A1D0A2 /* TaskAddButtonCell.swift */,
 				7A9035292A311F670090CA21 /* CategoryTypeViewController.swift */,
+				7AB1487C2A4CC5C6009BD265 /* CategoryTypeHeaderView.swift */,
+				7AB1487A2A4CC593009BD265 /* CategoryTypeTaskCell.swift */,
 				7A5AED422A156D9D00D84A53 /* ModalViewPresentationController.swift */,
 				7A1637E72A0CEB7C0055F8EC /* CalendarViewController.swift */,
 				7A1637EF2A0EC75F0055F8EC /* Cell */,
@@ -316,6 +324,7 @@
 				7A0BDBF429F7F127001580DE /* Extensions */,
 				7AEE30922A012A9E00A61856 /* WebViewController.swift */,
 				7AEAC1DB2A0535380019A4A4 /* TabbarController.swift */,
+				7AB1487E2A4CEF1A009BD265 /* BasePaddingLabel.swift */,
 			);
 			path = "Tasker-iOS";
 			sourceTree = "<group>";
@@ -558,6 +567,7 @@
 				7A5AED4A2A1CF27E00D84A53 /* ConfigureCategoryViewController.swift in Sources */,
 				7A5AED5A2A214A9900D84A53 /* TimePickerViewController.swift in Sources */,
 				7AEAC1D42A051D510019A4A4 /* OnboardingViewController.swift in Sources */,
+				7AB1487F2A4CEF1A009BD265 /* BasePaddingLabel.swift in Sources */,
 				7A46910D2A33DF9500192C77 /* UIString+.swift in Sources */,
 				7A1637EA2A0D56430055F8EC /* CalendarCell.swift in Sources */,
 				7A2B70142A385D37005924C6 /* TaskModel.swift in Sources */,
@@ -571,6 +581,7 @@
 				E3220B3929F007EF00F6C9FB /* HTTPMethod.swift in Sources */,
 				7A3BEFA32A13607D00F83A88 /* HomeCalendarCell.swift in Sources */,
 				7AEAC1E62A0681D00019A4A4 /* BrowseViewController.swift in Sources */,
+				7AB1487B2A4CC593009BD265 /* CategoryTypeTaskCell.swift in Sources */,
 				7A5AED552A1F68C000D84A53 /* DetailViewController.swift in Sources */,
 				7AEAC1DE2A05355F0019A4A4 /* HomeViewController.swift in Sources */,
 				7A2B70162A385D65005924C6 /* TaskViewModel.swift in Sources */,
@@ -596,6 +607,7 @@
 				7AC04EBB29D31FE4004BB3E2 /* Tasker_iOS.xcdatamodeld in Sources */,
 				E3220B3D29F009EC00F6C9FB /* LoginViewModel.swift in Sources */,
 				7AEE30932A012A9E00A61856 /* WebViewController.swift in Sources */,
+				7AB1487D2A4CC5C6009BD265 /* CategoryTypeHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
